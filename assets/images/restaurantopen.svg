@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="800px" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <!-- الخلفية الرئيسية -->
+    <rect x="10" y="55" width="100" height="40" rx="5" fill="#00CB72"/>
+    <rect x="12" y="57" width="96" height="36" rx="5" fill="#00D472"/>
+    
+    <!-- علامة التعليق -->
+    <path d="M60 20L30 50H40L60 30L80 50H90L60 20Z" fill="#009A64"/>
+    
+    <!-- الدائرة العلوية -->
+    <circle cx="60" cy="15" r="7" fill="#009A64"/>
+    <circle cx="60" cy="15" r="4" fill="#FFFFFF"/>
+    
+    <!-- النص -->
+    <text x="50%" y="80" font-family="Arial" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">OPEN</text>
+  </g>
+</svg>
