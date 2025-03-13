@@ -1,11 +1,21 @@
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/controllers/tab_index_controller.dart';
+import 'package:burger_shop_app/views/home/main/cart/cart_page.dart';
+import 'package:burger_shop_app/views/home/main/home/home_page.dart';
+import 'package:burger_shop_app/views/home/main/profile/profile_page.dart';
+import 'package:burger_shop_app/views/home/main/search/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+   MainScreen({super.key});
+  final List<Widget> pageList = [
+    const HomePage(),
+    const SearchPage(),
+    const CartPage(),
+    const ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +24,8 @@ class MainScreen extends StatelessWidget {
       () => Scaffold(
         body: Stack(
           children: [
-            Container(
-              height: height,
-              width: width,
-              color: kOffWhite,
-              child: Align(
+            pageList[controller.tabIndex],
+            Align(
                 alignment: Alignment.bottomCenter,
                 child: Theme(
                   data: Theme.of(context).copyWith(canvasColor: kPrimary),
@@ -61,7 +68,6 @@ class MainScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
