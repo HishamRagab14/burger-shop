@@ -47,9 +47,9 @@ class CustomAppbar extends StatelessWidget {
           ),
           SvgPicture.asset(
             'assets/images/restaurantopen.svg',
-            width: 40.w, // يمكن تعديل الحجم حسب الحاجة
+            width: 40.w,
             height: 40.h,
-            fit: BoxFit.contain, // تحكم في طريقة العرض
+            fit: BoxFit.contain,
           ),
         ],
       ),
