@@ -134,16 +134,16 @@ List<FoodCategory> categories = [
     id: 1,
     title: "Dessert",
     value: "dessert",
-    imageUrl: "https://example.com/dessert.jpg",
+    imageUrl: "assets/images/dessert.png",
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     version: 2,
   ),
   FoodCategory(
     id: 2,
-    title: "Main Course",
+    title: "Grilled",
     value: "main_course",
-    imageUrl: "https://example.com/main_course.jpg",
+    imageUrl: "assets/images/grilled.png",
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     version: 2,
@@ -152,7 +152,7 @@ List<FoodCategory> categories = [
     id: 3,
     title: "Salad",
     value: "salad",
-    imageUrl: "https://example.com/salad.jpg",
+    imageUrl: "assets/images/salad.png",
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     version: 2,
@@ -161,7 +161,7 @@ List<FoodCategory> categories = [
     id: 4,
     title: "Drinks",
     value: "drinks",
-    imageUrl: "https://example.com/drinks.jpg",
+    imageUrl: "assets/images/drinks.png",
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     version: 2,
@@ -170,7 +170,43 @@ List<FoodCategory> categories = [
     id: 5,
     title: "Appetizer",
     value: "appetizer",
-    imageUrl: "https://example.com/appetizer.jpg",
+    imageUrl: "assets/images/appetizer.png",
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    version: 2,
+  ),
+  FoodCategory(
+    id: 6,
+    title: "Fried Chicken",
+    value: "Fried Chicken",
+    imageUrl: "assets/images/friedchicken.png",
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    version: 2,
+  ),
+  FoodCategory(
+    id: 7,
+    title: "Pizza",
+    value: "Pizza",
+    imageUrl: "assets/images/pizza.png",
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    version: 2,
+  ),
+  FoodCategory(
+    id: 8,
+    title: "Pasta",
+    value: "Pasta",
+    imageUrl: "assets/images/pasta.png",
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    version: 2,
+  ),
+  FoodCategory(
+    id: 9,
+    title: "More",
+    value: "More",
+    imageUrl: "assets/images/shrimp.png",
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     version: 2,
@@ -332,7 +368,8 @@ List<Food> foods = [
         "A traditional Egyptian dish made with pasta, rice, lentils, and a spicy tomato sauce.",
     price: 5.99,
     additives: [Additive(id: 1, title: "Extra Sauce", price: 0.50)],
-    imageUrl: "https://www.chocolatesandchai.com/wp-content/uploads/2023/02/Egyptian-Koshari-1.jpg",
+    imageUrl:
+        "https://www.chocolatesandchai.com/wp-content/uploads/2023/02/Egyptian-Koshari-1.jpg",
     time: "25 min",
     category: categories[1],
     version: 2,
@@ -351,7 +388,8 @@ List<Food> foods = [
         "A selection of fresh sushi rolls including salmon, tuna, and avocado.",
     price: 22.99,
     additives: [Additive(id: 1, title: "Extra Wasabi", price: 1.00)],
-    imageUrl: "https://kitchen.sayidaty.net/uploads/small/90/90cf15fca56b0e383c071d4a209af016_w750_h750.jpg",
+    imageUrl:
+        "https://kitchen.sayidaty.net/uploads/small/90/90cf15fca56b0e383c071d4a209af016_w750_h750.jpg",
     time: "40 min",
     category: categories[1],
     version: 2,
@@ -370,7 +408,8 @@ List<Food> foods = [
         "A thick, juicy beef burger with cheddar cheese and caramelized onions.",
     price: 15.99,
     additives: [Additive(id: 1, title: "Extra Cheese", price: 2.00)],
-    imageUrl: "https://i0.wp.com/yummyfreebies.com/wp-content/uploads/2020/05/amirali-mirhashemian-sc5sTPMrVfk-unsplash-scaled.jpg",
+    imageUrl:
+        "https://i0.wp.com/yummyfreebies.com/wp-content/uploads/2020/05/amirali-mirhashemian-sc5sTPMrVfk-unsplash-scaled.jpg",
     time: "30 min",
     category: categories[1],
     version: 2,
@@ -389,7 +428,8 @@ List<Food> foods = [
         "A classic Egyptian green soup made from jute leaves, served with rice or bread.",
     price: 6.99,
     additives: [],
-    imageUrl: "https://i0.wp.com/eyesclosedcooking.com/wp-content/uploads/2023/01/Egyptian_Molokhia_1.jpg?fit=1024%2C682&ssl=1",
+    imageUrl:
+        "https://i0.wp.com/eyesclosedcooking.com/wp-content/uploads/2023/01/Egyptian_Molokhia_1.jpg?fit=1024%2C682&ssl=1",
     time: "20 min",
     category: categories[1],
     version: 2,
@@ -407,7 +447,8 @@ List<Food> foods = [
     description: "A spicy meat-stuffed bread, grilled to perfection.",
     price: 7.99,
     additives: [Additive(id: 1, title: "Extra Spice", price: 1.00)],
-    imageUrl: "https://kitchen.sayidaty.net/uploads/small/5f/5f6d39861ac1d9ef4bd3a5561f9e42eb_w750_h500.jpg",
+    imageUrl:
+        "https://kitchen.sayidaty.net/uploads/small/5f/5f6d39861ac1d9ef4bd3a5561f9e42eb_w750_h500.jpg",
     time: "30 min",
     category: categories[1],
     version: 2,
@@ -426,7 +467,8 @@ List<Food> foods = [
         "Vegetables like zucchini and eggplant stuffed with rice and herbs.",
     price: 8.99,
     additives: [],
-    imageUrl: "https://www.thaqfny.com/wp-content/uploads/2022/12/%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D8%AD%D8%B1%D8%A7%D8%B1%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%AD%D8%B4%D9%8A-%D8%A7%D9%84%D9%83%D8%B1%D9%86%D8%A8-1200x900-1.jpg",
+    imageUrl:
+        "https://www.thaqfny.com/wp-content/uploads/2022/12/%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D8%AD%D8%B1%D8%A7%D8%B1%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%AD%D8%B4%D9%8A-%D8%A7%D9%84%D9%83%D8%B1%D9%86%D8%A8-1200x900-1.jpg",
     time: "40 min",
     category: categories[1],
     version: 2,
@@ -446,7 +488,8 @@ List<Food> foods = [
         "A thick, juicy beef burger with cheddar cheese and caramelized onions.",
     price: 15.99,
     additives: [Additive(id: 1, title: "Extra Cheese", price: 2.00)],
-    imageUrl: "https://www.sargento.com/assets/Uploads/Recipe/Image/burger_0__FillWzExNzAsNTgzXQ.jpg",
+    imageUrl:
+        "https://www.sargento.com/assets/Uploads/Recipe/Image/burger_0__FillWzExNzAsNTgzXQ.jpg",
     time: "30 min",
     category: categories[1],
     version: 2,
@@ -464,7 +507,8 @@ List<Food> foods = [
     description: "Slow-cooked pork ribs with a smoky BBQ sauce.",
     price: 22.99,
     additives: [Additive(id: 1, title: "Extra Sauce", price: 1.50)],
-    imageUrl: "https://www.thecookierookie.com/wp-content/uploads/2018/12/crock-pot-ribs-recipe-slow-cooker-bbq-ribs-5-of-7.jpg",
+    imageUrl:
+        "https://www.thecookierookie.com/wp-content/uploads/2018/12/crock-pot-ribs-recipe-slow-cooker-bbq-ribs-5-of-7.jpg",
     time: "45 min",
     category: categories[1],
     version: 2,
@@ -482,7 +526,8 @@ List<Food> foods = [
     description: "Creamy macaroni pasta with melted cheddar cheese.",
     price: 12.99,
     additives: [Additive(id: 1, title: "Extra Cheese", price: 1.00)],
-    imageUrl: "https://www.zupans.com/app/uploads/2020/05/iStock-174990644-4096x2731.jpg",
+    imageUrl:
+        "https://www.zupans.com/app/uploads/2020/05/iStock-174990644-4096x2731.jpg",
     time: "20 min",
     category: categories[1],
     version: 2,
@@ -502,7 +547,8 @@ List<Food> foods = [
         "Grilled chicken or beef wrapped in pita bread with garlic sauce.",
     price: 8.99,
     additives: [Additive(id: 1, title: "Extra Garlic Sauce", price: 0.50)],
-    imageUrl: "https://1.bp.blogspot.com/-Lmxxa3snXOw/Xul3v_eFFPI/AAAAAAAA0T4/CwazWI4hxPUgaOPnUuElIKFu-uXMIibRgCLcBGAsYHQ/s1600/DSC07980.jpg",
+    imageUrl:
+        "https://1.bp.blogspot.com/-Lmxxa3snXOw/Xul3v_eFFPI/AAAAAAAA0T4/CwazWI4hxPUgaOPnUuElIKFu-uXMIibRgCLcBGAsYHQ/s1600/DSC07980.jpg",
     time: "25 min",
     category: categories[1],
     version: 2,
@@ -521,7 +567,8 @@ List<Food> foods = [
         "A creamy dip made from blended chickpeas, tahini, and olive oil.",
     price: 5.99,
     additives: [Additive(id: 1, title: "Extra Olive Oil", price: 0.50)],
-    imageUrl: "https://feelgoodfoodie.net/wp-content/uploads/2022/04/Roasted-Garlic-Hummus-10.jpg",
+    imageUrl:
+        "https://feelgoodfoodie.net/wp-content/uploads/2022/04/Roasted-Garlic-Hummus-10.jpg",
     time: "15 min",
     category: categories[4],
     version: 2,
@@ -544,7 +591,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Garlic Sauce", price: 0.50),
       Additive(id: 3, title: "Extra Rice", price: 1.00),
     ],
-    imageUrl: "https://www.unileverfoodsolutions.eg/dam/global-ufs/mcos/meps/arabia/calcmenu/recipes/EG-recipes/In-Development/beef-shank-over-egyptian-fatta/main-header.jpg",
+    imageUrl:
+        "https://www.unileverfoodsolutions.eg/dam/global-ufs/mcos/meps/arabia/calcmenu/recipes/EG-recipes/In-Development/beef-shank-over-egyptian-fatta/main-header.jpg",
     time: "35 min",
     category: categories[1],
     version: 2,
@@ -567,7 +615,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Raisins", price: 0.50),
       Additive(id: 3, title: "Extra Cream", price: 0.75),
     ],
-    imageUrl: "https://www.carolinescooking.com/wp-content/uploads/2020/02/umm-Ali-featured-pic-sq.jpg",
+    imageUrl:
+        "https://www.carolinescooking.com/wp-content/uploads/2020/02/umm-Ali-featured-pic-sq.jpg",
     time: "20 min",
     category: categories[4],
     version: 2,
@@ -590,7 +639,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Pepperoni", price: 3.00),
       Additive(id: 3, title: "Extra Garlic Dip", price: 1.00),
     ],
-    imageUrl: "https://colorfulrecipes.com/wp-content/uploads/2020/08/best-pepperoni-pizza-recipe-10.jpg",
+    imageUrl:
+        "https://colorfulrecipes.com/wp-content/uploads/2020/08/best-pepperoni-pizza-recipe-10.jpg",
     time: "25 min",
     category: categories[1],
     version: 2,
@@ -613,7 +663,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Cheese", price: 2.00),
       Additive(id: 3, title: "Extra Tomato Sauce", price: 0.50),
     ],
-    imageUrl: "https://cookieandkate.com/images/2021/07/homemade-margherita-pizza.jpg",
+    imageUrl:
+        "https://cookieandkate.com/images/2021/07/homemade-margherita-pizza.jpg",
     time: "20 min",
     category: categories[1],
     version: 2,
@@ -636,7 +687,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Chicken", price: 3.00),
       Additive(id: 3, title: "Extra Cilantro", price: 0.50),
     ],
-    imageUrl: "https://www.handi-foil.com/wp-content/uploads/2019/07/BBQ-Chicken-Pizza-16-of-19-2000x1333.jpg",
+    imageUrl:
+        "https://www.handi-foil.com/wp-content/uploads/2019/07/BBQ-Chicken-Pizza-16-of-19-2000x1333.jpg",
     time: "30 min",
     category: categories[1],
     version: 2,
@@ -659,7 +711,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Rice", price: 1.00),
       Additive(id: 3, title: "Extra Grilled Vegetables", price: 2.00),
     ],
-    imageUrl: "https://www.fufuskitchen.com/wp-content/uploads/2020/08/IMG_3384-scaled.webp",
+    imageUrl:
+        "https://www.fufuskitchen.com/wp-content/uploads/2020/08/IMG_3384-scaled.webp",
     time: "30 min",
     category: categories[1],
     version: 2,
@@ -705,7 +758,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Fruits", price: 1.00),
       Additive(id: 3, title: "Extra Whipped Cream", price: 0.50),
     ],
-    imageUrl: "https://pbs.twimg.com/media/D3-VShTX4AAnxbE.jpg", // Replace with actual image URL
+    imageUrl:
+        "https://pbs.twimg.com/media/D3-VShTX4AAnxbE.jpg", // Replace with actual image URL
     time: "15 min",
     category: categories[4],
     version: 2,
@@ -728,7 +782,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Chocolate Ganache", price: 0.75),
       Additive(id: 3, title: "Extra Crushed Hazelnuts", price: 0.50),
     ],
-    imageUrl: "https://www.curlyscooking.co.uk/wp-content/uploads/2020/11/Pistachio-Cake-with-Vanilla-Cream-Cheese-Icing-7.jpg", // Replace with actual image URL
+    imageUrl:
+        "https://www.curlyscooking.co.uk/wp-content/uploads/2020/11/Pistachio-Cake-with-Vanilla-Cream-Cheese-Icing-7.jpg", // Replace with actual image URL
     time: "10 min",
     category: categories[4],
     version: 2,
@@ -751,7 +806,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Fruits", price: 1.00),
       Additive(id: 3, title: "Extra Cream", price: 0.75),
     ],
-    imageUrl: "https://www.mexatk.com/wp-content/uploads/2022/09/%D8%A8%D9%84%D8%A8%D9%86-1-1.jpg", // Replace with actual image URL
+    imageUrl:
+        "https://www.mexatk.com/wp-content/uploads/2022/09/%D8%A8%D9%84%D8%A8%D9%86-1-1.jpg", // Replace with actual image URL
     time: "12 min",
     category: categories[4],
     version: 2,
@@ -774,7 +830,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Nuts", price: 1.00),
       Additive(id: 3, title: "Extra Cream", price: 0.75),
     ],
-    imageUrl: "https://images.deliveryhero.io/image/talabat/MenuItems/Qashtotah_super_lux__18638520669946299816.jpg", // Replace with actual image URL
+    imageUrl:
+        "https://images.deliveryhero.io/image/talabat/MenuItems/Qashtotah_super_lux__18638520669946299816.jpg", // Replace with actual image URL
     time: "10 min",
     category: categories[4],
     version: 2,
@@ -798,7 +855,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Grilled Vegetables", price: 2.00),
       Additive(id: 3, title: "Extra Rice", price: 1.00),
     ],
-    imageUrl: "https://www.australianbeef.com.au/contentassets/a7c605325a5a4e3986c817b7c89abd7a/mixed-grill-s.jpg", // Replace with actual image URL
+    imageUrl:
+        "https://www.australianbeef.com.au/contentassets/a7c605325a5a4e3986c817b7c89abd7a/mixed-grill-s.jpg", // Replace with actual image URL
     time: "30 min",
     category: categories[1],
     version: 2,
@@ -821,7 +879,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Bread", price: 0.50),
       Additive(id: 3, title: "Extra Grilled Vegetables", price: 2.00),
     ],
-    imageUrl: "https://amiraspantry.com/wp-content/uploads/2021/03/shish-tawooq-IG.jpg", // Replace with actual image URL
+    imageUrl:
+        "https://amiraspantry.com/wp-content/uploads/2021/03/shish-tawooq-IG.jpg", // Replace with actual image URL
     time: "25 min",
     category: categories[1],
     version: 2,
@@ -845,7 +904,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Pickles", price: 0.50),
       Additive(id: 3, title: "Extra Beef", price: 2.00),
     ],
-    imageUrl: "https://www.corriecooks.com/wp-content/uploads/2023/08/beefshawarma.jpg", // Replace with actual image URL
+    imageUrl:
+        "https://www.corriecooks.com/wp-content/uploads/2023/08/beefshawarma.jpg", // Replace with actual image URL
     time: "15 min",
     category: categories[1],
     version: 2,
@@ -868,7 +928,8 @@ List<Food> foods = [
       Additive(id: 2, title: "Extra Rice", price: 1.00),
       Additive(id: 3, title: "Extra Salad", price: 1.00),
     ],
-    imageUrl: "https://img.freepik.com/premium-photo/arabic-chicken-shawarma-plate-with-fries-served-dish-isolated-table-side-view-middle-east-food_689047-3434.jpg?w=2000", // Replace with actual image URL
+    imageUrl:
+        "https://img.freepik.com/premium-photo/arabic-chicken-shawarma-plate-with-fries-served-dish-isolated-table-side-view-middle-east-food_689047-3434.jpg?w=2000", // Replace with actual image URL
     time: "20 min",
     category: categories[1],
     version: 2,
