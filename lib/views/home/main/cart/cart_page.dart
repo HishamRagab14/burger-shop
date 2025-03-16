@@ -1,4 +1,7 @@
+import 'package:burger_shop_app/common/custom_container.dart';
+import 'package:burger_shop_app/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -6,12 +9,12 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cart'),
+      backgroundColor: kPrimary,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.h),
+        child: Container(),
       ),
-      body: Center(
-        child: Text('Cart Page'),
-      ),
+      body: SafeArea(child: CustomContainer(containerContent: Container())),
     );
   }
 }
