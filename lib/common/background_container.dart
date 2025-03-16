@@ -25,7 +25,9 @@ class BackgroundContainer extends StatelessWidget {
           ),
           image: DecorationImage(
             alignment: Alignment.bottomCenter,
-            image: AssetImage("assets/images/background3.png"),
+            image: AssetImage("assets/images/backgroundgded.png",),
+            fit: BoxFit.contain,
+            opacity: 0.5,
           ),
         ),
         child: child,
