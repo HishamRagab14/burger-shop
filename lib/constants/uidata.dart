@@ -499,7 +499,7 @@ List<Food> foods = [
     price: 22.99,
     additives: [Additive(id: 1, title: "Extra Wasabi", price: 1.00)],
     imageUrl:
-        "assets/images/sushi.jpg",
+        "https://kitchen.sayidaty.net/uploads/small/90/90cf15fca56b0e383c071d4a209af016_w750_h750.jpg",
     time: "40 min",
     category: categories[1],
     version: 2,
