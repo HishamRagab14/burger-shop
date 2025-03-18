@@ -1,3 +1,5 @@
+// import 'package:intl/intl.dart';
+
 class FoodCategory {
   final int id;
   final String title;
@@ -32,33 +34,100 @@ class FoodCategory {
 class Restaurant {
   final String id;
   final String name;
-  final String address;
   final double rating;
   final int ratingCount;
   final String? imageUrl;
   final List<Food> menu;
   final int time;
+  final Coords coords;
+  final bool isOpen;
+  final String openingHours;
+  final String closingHours;
 
   Restaurant({
     required this.id,
     required this.name,
-    required this.address,
     required this.rating,
     required this.ratingCount,
     this.imageUrl,
     required this.menu,
     required this.time,
+    required this.coords,
+    required this.isOpen,
+    required this.openingHours,
+    required this.closingHours,
   });
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
-      'address': address,
       'rating': rating,
       'ratingCount': ratingCount,
       'imageUrl': imageUrl,
       'menu': menu.map((food) => food.toMap()).toList(),
       'time': time,
+      'coords': coords.toMap(),
+      'isOpen': isOpen,
+      'openingHours': openingHours,
+      'closingHours': closingHours,
+    };
+  }
+
+  // bool isCurrentlyOpen() {
+  //   final now = DateTime.now();
+  //   final openingTime = _parseTime(openingHours);
+  //   final closingTime = _parseTime(closingHours);
+
+  //   if (closingTime.isAfter(openingTime)) {
+  //     return now.isAfter(openingTime) && now.isBefore(closingTime);
+  //   } else {
+  //     return now.isAfter(openingTime) || now.isBefore(closingTime);
+  //   }
+  // }
+
+  // DateTime _parseTime(String time) {
+  //   try {
+  //   final cleanedTime = time.trim(); // Trim any leading/trailing spaces
+  //   print('Parsing time: $cleanedTime'); // Debugging
+  //   final format = DateFormat.jm(); // Expected format: "hh:mm a"
+  //   final parsedTime = format.parse(cleanedTime);
+  //   print('Parsed time: $parsedTime'); // Debugging
+  //   return parsedTime;
+  // } catch (e) {
+  //   print('Error parsing time: $time');
+  //   print('Error details: $e');
+  //   throw FormatException('Invalid time format: $time');
+  // }
+  // }
+}
+
+class Coords {
+  final String id;
+  final double latitude;
+  final double longitude;
+  final String address;
+  final String title;
+  final double latitudeDelta;
+  final double longitudeDelta;
+
+  Coords({
+    required this.id,
+    required this.latitude,
+    required this.longitude,
+    required this.address,
+    required this.title,
+    required this.latitudeDelta,
+    required this.longitudeDelta,
+  });
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'latitude': latitude,
+      'longitude': longitude,
+      'address': address,
+      'title': title,
+      'latitudeDelta': latitudeDelta,
+      'longitudeDelta': longitudeDelta,
     };
   }
 }
@@ -223,246 +292,508 @@ List<Restaurant> restaurants = [
   Restaurant(
     id: "1",
     name: "Buffalo Burger",
-    address: "Zamalek, Cairo, Egypt",
     rating: 4.5,
     ratingCount: 500,
     imageUrl: "assets/images/buffaloburger.jpg",
     menu: [],
-    time: 20
+    time: 20,
+    coords: Coords(
+      id: "2024",
+      latitude: 30.0616,
+      longitude: 31.2195,
+      address: "26 Nile Street, Zamalek, Cairo, Egypt",
+      title: "Buffalo Burger",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "2:00 AM",
   ),
   Restaurant(
     id: "2",
     name: "Kazoku",
-    address: "New Cairo, Egypt",
     rating: 4.7,
     ratingCount: 500,
     imageUrl: "assets/images/kazoku.png",
     menu: [],
     time: 20,
+    coords: Coords(
+      id: "2025",
+      latitude: 30.0276,
+      longitude: 31.4700,
+      address: "Mall of Egypt, New Cairo, Egypt",
+      title: "Kazoku",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: false,
+    openingHours: "10:00 AM",
+    closingHours: "10:00 PM",
   ),
   Restaurant(
     id: "3",
     name: "Hagoga",
-    address: "Maadi, Cairo, Egypt",
     rating: 4.6,
     ratingCount: 500,
     imageUrl: "assets/images/hagoga.jpg",
     menu: [],
     time: 20,
+    coords: Coords(
+      id: "2026",
+      latitude: 29.9627,
+      longitude: 31.2597,
+      address: "Road 9, Maadi, Cairo, Egypt",
+      title: "Hagoga",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "11:00 AM",
+    closingHours: "11:00 PM",
   ),
   Restaurant(
     id: "4",
     name: "Heart Attack",
-    address: "Downtown, Cairo, Egypt",
     rating: 4.3,
     ratingCount: 1000,
     imageUrl: "assets/images/heartattack.jpg",
     menu: [],
     time: 26,
+    coords: Coords(
+      id: "2027",
+      latitude: 30.0444,
+      longitude: 31.2357,
+      address: "Talaat Harb Street, Downtown, Cairo, Egypt",
+      title: "Heart Attack",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "1:00 PM",
+    closingHours: "1:00 AM",
   ),
-
   Restaurant(
     id: "5",
     name: "Papa John's",
-    address: "Zamalek, Cairo, Egypt",
     rating: 4.4,
     ratingCount: 1500,
     imageUrl: "assets/images/papajohn.png",
     menu: [],
     time: 45,
+    coords: Coords(
+      id: "2028",
+      latitude: 30.0616,
+      longitude: 31.2195,
+      address: "15 Hassan Sabry Street, Zamalek, Cairo, Egypt",
+      title: "Papa John's",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "11:00 AM",
+    closingHours: "12:00 AM",
   ),
   Restaurant(
     id: "6",
     name: "Primos Pizza",
-    address: "Zamalek, Cairo, Egypt",
     rating: 4.6,
     ratingCount: 765,
     imageUrl: "assets/images/primos.jpg",
     menu: [],
     time: 50,
+    coords: Coords(
+      id: "2029",
+      latitude: 30.0616,
+      longitude: 31.2195,
+      address: "12 Mohamed Mazhar Street, Zamalek, Cairo, Egypt",
+      title: "Primos Pizza",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "11:00 PM",
   ),
   Restaurant(
     id: "7",
     name: "Maison Thomas",
-    address: "Zamalek, Cairo, Egypt",
     rating: 4.7,
     ratingCount: 356,
     imageUrl: "assets/images/maisonthomas.jpg",
     menu: [],
     time: 55,
+    coords: Coords(
+      id: "2030",
+      latitude: 30.0616,
+      longitude: 31.2195,
+      address: "157 26th of July Street, Zamalek, Cairo, Egypt",
+      title: "Maison Thomas",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "10:00 AM",
+    closingHours: "10:00 PM",
   ),
   Restaurant(
     id: "8",
     name: "Kasr elKebabgy",
-    address: "New Cairo, Egypt",
     rating: 4.5,
     ratingCount: 2210,
     imageUrl: "assets/images/kasrelkbabgy.jpeg",
     menu: [],
     time: 60,
+    coords: Coords(
+      id: "2031",
+      latitude: 30.0276,
+      longitude: 31.4700,
+      address: "Cairo Festival City, New Cairo, Egypt",
+      title: "Kasr elKebabgy",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "12:00 AM",
   ),
   Restaurant(
     id: "9",
     name: "Burger King",
-    address: "Fifth settlement, cairo",
     rating: 4.1,
     ratingCount: 1215,
     imageUrl: "assets/images/burgerking.jpg",
     menu: [],
     time: 20,
+    coords: Coords(
+      id: "2032",
+      latitude: 30.0199,
+      longitude: 31.4358,
+      address: "Point 90 Mall, Fifth Settlement, Cairo, Egypt",
+      title: "Burger King",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "10:00 AM",
+    closingHours: "11:00 PM",
   ),
   Restaurant(
     id: "10",
     name: "Wahmy",
-    address: "Giza, Egypt",
     rating: 4.8,
     ratingCount: 950,
     imageUrl: "assets/images/wahmy.jpg",
     menu: [],
     time: 15,
+    coords: Coords(
+      id: "2033",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Sphinx Square, Giza, Egypt",
+      title: "Wahmy",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "2:00 AM",
   ),
   Restaurant(
     id: "11",
     name: "McDonald's",
-    address: "Fifth settlement, cairo",
     rating: 4.2,
     ratingCount: 600,
     imageUrl: "assets/images/mac.jpg",
     menu: [],
     time: 15,
+    coords: Coords(
+      id: "2034",
+      latitude: 30.0199,
+      longitude: 31.4358,
+      address: "Downtown Mall, Fifth Settlement, Cairo, Egypt",
+      title: "McDonald's",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "9:00 AM",
+    closingHours: "12:00 AM",
   ),
   Restaurant(
     id: "12",
     name: "KFC",
-    address: "Alexandria, Egypt",
     rating: 4.1,
     ratingCount: 4003,
     imageUrl: "assets/images/kfc.jpg",
     menu: [],
     time: 15,
+    coords: Coords(
+      id: "2035",
+      latitude: 30.0199,
+      longitude: 31.4358,
+      address: "American University in Cairo, Fifth Settlement, Cairo",
+      title: "KFC",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "10:00 AM",
+    closingHours: "11:00 PM",
   ),
   Restaurant(
     id: "13",
     name: "Pizza Hut",
-    address: "Giza, Egypt",
     rating: 4.3,
     ratingCount: 2320,
     imageUrl: "assets/images/pizzahut.jpg",
     menu: [],
     time: 30,
+    coords: Coords(
+      id: "2036",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Square, Giza, Egypt",
+      title: "Pizza Hut",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "11:00 AM",
+    closingHours: "12:00 AM",
   ),
   Restaurant(
     id: "14",
     name: "Starbucks",
-    address: "New Cairo, Egypt",
     rating: 4.4,
     ratingCount: 1418,
     imageUrl: "assets/images/starbucks.jpg",
     menu: [],
     time: 10,
+    coords: Coords(
+      id: "2037",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Mall, Giza, Egypt",
+      title: "Starbucks",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "7:00 AM",
+    closingHours: "11:00 PM",
   ),
   Restaurant(
     id: "15",
     name: "Hardee's",
-    address: "Cairo, Egypt",
     rating: 4.2,
-    imageUrl: "assets/images/hardees.jpg",
     ratingCount: 1152,
+    imageUrl: "assets/images/hardees.jpg",
     menu: [],
     time: 40,
+    coords: Coords(
+      id: "2038",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Corniche, Giza, Egypt",
+      title: "Hardee's",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "10:00 AM",
+    closingHours: "12:00 AM",
   ),
   Restaurant(
     id: "16",
     name: "Domino's Pizza",
-    address: "Alexandria, Egypt",
     rating: 4.3,
     ratingCount: 2406,
     imageUrl: "assets/images/dominos.png",
     menu: [],
     time: 45,
+    coords: Coords(
+      id: "2039",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Plaza, Giza, Egypt",
+      title: "Domino's Pizza",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "11:00 AM",
+    closingHours: "1:00 AM",
   ),
   Restaurant(
     id: "17",
     name: "Chili's",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 340,
     imageUrl: "assets/images/chilis.jpg",
     menu: [],
     time: 35,
+    coords: Coords(
+      id: "2040",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Mall, Giza, Egypt",
+      title: "Chili's",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "11:00 PM",
   ),
   Restaurant(
     id: "18",
     name: "Rib I",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 567,
     imageUrl: "assets/images/ribi.jpg",
     menu: [],
     time: 60,
+    coords: Coords(
+      id: "2041",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Corniche, Giza, Egypt",
+      title: "Rib I",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "1:00 PM",
+    closingHours: "12:00 AM",
   ),
   Restaurant(
     id: "19",
     name: "Costa Coffee",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 2510,
     imageUrl: "assets/images/costa.jpg",
     menu: [],
     time: 8,
+    coords: Coords(
+      id: "2042",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Plaza, Giza, Egypt",
+      title: "Costa Coffee",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "8:00 AM",
+    closingHours: "10:00 PM",
   ),
   Restaurant(
     id: "20",
     name: "Belaban",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 3312,
     imageUrl: "assets/images/blaban.png",
     menu: [],
     time: 25,
+    coords: Coords(
+      id: "2043",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Square, Giza, Egypt",
+      title: "Belaban",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "1:00 AM",
   ),
   Restaurant(
     id: "21",
     name: "Bazooka",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 1815,
     imageUrl: "assets/images/bazooka.jpg",
     menu: [],
     time: 60,
+    coords: Coords(
+      id: "2044",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Mall, Giza, Egypt",
+      title: "Bazooka",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "12:00 AM",
   ),
   Restaurant(
     id: "22",
     name: "Buffalo Burger",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 3150,
     imageUrl: "assets/images/buffaloburger.jpg",
     menu: [],
     time: 45,
+    coords: Coords(
+      id: "2045",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Corniche, Giza, Egypt",
+      title: "Buffalo Burger",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "2:00 AM",
   ),
   Restaurant(
     id: "23",
     name: "Pizza Station",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 1588,
     imageUrl: "assets/images/pizzastation.jpg",
     menu: [],
     time: 50,
+    coords: Coords(
+      id: "2046",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Plaza, Giza, Egypt",
+      title: "Pizza Station",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "11:00 AM",
+    closingHours: "11:00 PM",
   ),
   Restaurant(
     id: "24",
     name: "Willy's",
-    address: "Cairo, Egypt",
     rating: 4.5,
     ratingCount: 1479,
     imageUrl: "assets/images/willy's.png",
     menu: [],
     time: 45,
+    coords: Coords(
+      id: "2047",
+      latitude: 29.9870,
+      longitude: 31.2118,
+      address: "Giza Mall, Giza, Egypt",
+      title: "Willy's",
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    ),
+    isOpen: true,
+    openingHours: "12:00 PM",
+    closingHours: "12:00 AM",
   ),
 ];
-
 List<Food> foods = [
   Food(
     id: "1",
@@ -476,7 +807,7 @@ List<Food> foods = [
     ratingCount: 500,
     description:
         "A traditional Egyptian dish made with pasta, rice, lentils, and a spicy tomato sauce.",
-    price: 5.99,
+    price: 25.99,
     additives: [Additive(id: 1, title: "Extra Sauce", price: 0.50)],
     imageUrl:
         "https://www.chocolatesandchai.com/wp-content/uploads/2023/02/Egyptian-Koshari-1.jpg",
@@ -496,7 +827,7 @@ List<Food> foods = [
     ratingCount: 320,
     description:
         "A selection of fresh sushi rolls including salmon, tuna, and avocado.",
-    price: 22.99,
+    price: 282.99,
     additives: [Additive(id: 1, title: "Extra Wasabi", price: 1.00)],
     imageUrl:
         "https://kitchen.sayidaty.net/uploads/small/90/90cf15fca56b0e383c071d4a209af016_w750_h750.jpg",
@@ -516,7 +847,7 @@ List<Food> foods = [
     ratingCount: 410,
     description:
         "A thick, juicy beef burger with cheddar cheese and caramelized onions.",
-    price: 15.99,
+    price: 267.99,
     additives: [Additive(id: 1, title: "Extra Cheese", price: 2.00)],
     imageUrl:
         "https://i0.wp.com/yummyfreebies.com/wp-content/uploads/2020/05/amirali-mirhashemian-sc5sTPMrVfk-unsplash-scaled.jpg",
@@ -536,7 +867,7 @@ List<Food> foods = [
     ratingCount: 280,
     description:
         "A classic Egyptian green soup made from jute leaves, served with rice or bread.",
-    price: 6.99,
+    price: 91.99,
     additives: [],
     imageUrl:
         "https://i0.wp.com/eyesclosedcooking.com/wp-content/uploads/2023/01/Egyptian_Molokhia_1.jpg?fit=1024%2C682&ssl=1",
@@ -555,7 +886,7 @@ List<Food> foods = [
     rating: 4.7,
     ratingCount: 400,
     description: "A spicy meat-stuffed bread, grilled to perfection.",
-    price: 7.99,
+    price: 139.99,
     additives: [Additive(id: 1, title: "Extra Spice", price: 1.00)],
     imageUrl:
         "https://kitchen.sayidaty.net/uploads/small/5f/5f6d39861ac1d9ef4bd3a5561f9e42eb_w750_h500.jpg",
@@ -575,7 +906,7 @@ List<Food> foods = [
     ratingCount: 300,
     description:
         "Vegetables like zucchini and eggplant stuffed with rice and herbs.",
-    price: 8.99,
+    price: 79.99,
     additives: [],
     imageUrl:
         "https://www.thaqfny.com/wp-content/uploads/2022/12/%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D8%AD%D8%B1%D8%A7%D8%B1%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%AD%D8%B4%D9%8A-%D8%A7%D9%84%D9%83%D8%B1%D9%86%D8%A8-1200x900-1.jpg",
@@ -596,7 +927,7 @@ List<Food> foods = [
     ratingCount: 410,
     description:
         "A thick, juicy beef burger with cheddar cheese and caramelized onions.",
-    price: 15.99,
+    price: 185.99,
     additives: [Additive(id: 1, title: "Extra Cheese", price: 2.00)],
     imageUrl:
         "https://www.sargento.com/assets/Uploads/Recipe/Image/burger_0__FillWzExNzAsNTgzXQ.jpg",
@@ -615,7 +946,7 @@ List<Food> foods = [
     rating: 4.8,
     ratingCount: 450,
     description: "Slow-cooked pork ribs with a smoky BBQ sauce.",
-    price: 22.99,
+    price: 549.99,
     additives: [Additive(id: 1, title: "Extra Sauce", price: 1.50)],
     imageUrl:
         "https://www.thecookierookie.com/wp-content/uploads/2018/12/crock-pot-ribs-recipe-slow-cooker-bbq-ribs-5-of-7.jpg",
@@ -634,7 +965,7 @@ List<Food> foods = [
     rating: 4.6,
     ratingCount: 320,
     description: "Creamy macaroni pasta with melted cheddar cheese.",
-    price: 12.99,
+    price: 190.0,
     additives: [Additive(id: 1, title: "Extra Cheese", price: 1.00)],
     imageUrl:
         "https://www.zupans.com/app/uploads/2020/05/iStock-174990644-4096x2731.jpg",
@@ -655,7 +986,7 @@ List<Food> foods = [
     ratingCount: 500,
     description:
         "Grilled chicken or beef wrapped in pita bread with garlic sauce.",
-    price: 8.99,
+    price: 99.99,
     additives: [Additive(id: 1, title: "Extra Garlic Sauce", price: 0.50)],
     imageUrl:
         "https://1.bp.blogspot.com/-Lmxxa3snXOw/Xul3v_eFFPI/AAAAAAAA0T4/CwazWI4hxPUgaOPnUuElIKFu-uXMIibRgCLcBGAsYHQ/s1600/DSC07980.jpg",
@@ -675,7 +1006,7 @@ List<Food> foods = [
     ratingCount: 400,
     description:
         "A creamy dip made from blended chickpeas, tahini, and olive oil.",
-    price: 5.99,
+    price: 15.99,
     additives: [Additive(id: 1, title: "Extra Olive Oil", price: 0.50)],
     imageUrl:
         "https://feelgoodfoodie.net/wp-content/uploads/2022/04/Roasted-Garlic-Hummus-10.jpg",
@@ -695,7 +1026,7 @@ List<Food> foods = [
     ratingCount: 250,
     description:
         "A festive Egyptian dish made with rice, bread, garlic, vinegar, and meat, topped with a garlic tomato sauce.",
-    price: 9.99,
+    price: 219.99,
     additives: [
       Additive(id: 1, title: "Extra Meat", price: 3.00),
       Additive(id: 2, title: "Extra Garlic Sauce", price: 0.50),
@@ -719,7 +1050,7 @@ List<Food> foods = [
     ratingCount: 300,
     description:
         "A traditional Egyptian dessert made with puff pastry, milk, nuts, and raisins, baked to perfection.",
-    price: 4.99,
+    price: 69.99,
     additives: [
       Additive(id: 1, title: "Extra Nuts", price: 1.00),
       Additive(id: 2, title: "Extra Raisins", price: 0.50),
@@ -743,7 +1074,7 @@ List<Food> foods = [
     ratingCount: 600,
     description:
         "A classic pepperoni pizza with a generous amount of cheese and pepperoni on a crispy crust.",
-    price: 12.99,
+    price: 290.99,
     additives: [
       Additive(id: 1, title: "Extra Cheese", price: 2.00),
       Additive(id: 2, title: "Extra Pepperoni", price: 3.00),
@@ -767,7 +1098,7 @@ List<Food> foods = [
     ratingCount: 450,
     description:
         "A simple yet delicious pizza with fresh mozzarella, tomatoes, and basil on a thin crust.",
-    price: 10.99,
+    price: 179.99,
     additives: [
       Additive(id: 1, title: "Extra Basil", price: 1.00),
       Additive(id: 2, title: "Extra Cheese", price: 2.00),
@@ -791,7 +1122,7 @@ List<Food> foods = [
     ratingCount: 500,
     description:
         "A flavorful pizza topped with BBQ chicken, onions, and cilantro on a crispy crust.",
-    price: 14.99,
+    price: 384.99,
     additives: [
       Additive(id: 1, title: "Extra BBQ Sauce", price: 1.50),
       Additive(id: 2, title: "Extra Chicken", price: 3.00),
@@ -815,7 +1146,7 @@ List<Food> foods = [
     ratingCount: 350,
     description:
         "Grilled skewers of seasoned ground meat (kofta) and chunks of marinated meat (kebab), served with rice or bread.",
-    price: 12.99,
+    price: 749.99,
     additives: [
       Additive(id: 1, title: "Extra Garlic Sauce", price: 0.50),
       Additive(id: 2, title: "Extra Rice", price: 1.00),
@@ -839,7 +1170,7 @@ List<Food> foods = [
     ratingCount: 280,
     description:
         "A sweet semolina cake soaked in syrup, often topped with coconut or nuts.",
-    price: 3.99,
+    price: 109.99,
     additives: [
       Additive(id: 1, title: "Extra Syrup", price: 0.50),
       Additive(id: 2, title: "Extra Coconut", price: 0.50),
@@ -862,7 +1193,7 @@ List<Food> foods = [
     ratingCount: 650,
     description:
         "A luxurious crepe filled with Nutella, fresh fruits, and topped with whipped cream and chocolate sauce.",
-    price: 9.99,
+    price: 119.99,
     additives: [
       Additive(id: 1, title: "Extra Nutella", price: 1.50),
       Additive(id: 2, title: "Extra Fruits", price: 1.00),
@@ -886,7 +1217,7 @@ List<Food> foods = [
     ratingCount: 600,
     description:
         "A rich chocolate cake with layers of hazelnut cream, topped with chocolate ganache and crushed hazelnuts.",
-    price: 8.99,
+    price: 129.99,
     additives: [
       Additive(id: 1, title: "Extra Hazelnut Cream", price: 1.00),
       Additive(id: 2, title: "Extra Chocolate Ganache", price: 0.75),
@@ -910,7 +1241,7 @@ List<Food> foods = [
     ratingCount: 550,
     description:
         "A fluffy sponge cake layered with cream, fruits, and drizzled with caramel sauce.",
-    price: 7.99,
+    price: 59.99,
     additives: [
       Additive(id: 1, title: "Extra Caramel Sauce", price: 0.50),
       Additive(id: 2, title: "Extra Fruits", price: 1.00),
@@ -934,7 +1265,7 @@ List<Food> foods = [
     ratingCount: 580,
     description:
         "A unique dessert combining layers of cake, cream, and caramel, topped with crunchy nuts.",
-    price: 8.50,
+    price: 69.50,
     additives: [
       Additive(id: 1, title: "Extra Caramel", price: 0.50),
       Additive(id: 2, title: "Extra Nuts", price: 1.00),
@@ -959,7 +1290,7 @@ List<Food> foods = [
     ratingCount: 700,
     description:
         "A platter of grilled kofta, kebab, chicken, and lamb served with rice and grilled vegetables.",
-    price: 18.99,
+    price: 429.99,
     additives: [
       Additive(id: 1, title: "Extra Garlic Sauce", price: 0.50),
       Additive(id: 2, title: "Extra Grilled Vegetables", price: 2.00),
@@ -983,7 +1314,7 @@ List<Food> foods = [
     ratingCount: 600,
     description:
         "Juicy marinated chicken skewers grilled to perfection, served with garlic sauce and bread.",
-    price: 14.99,
+    price: 209.99,
     additives: [
       Additive(id: 1, title: "Extra Garlic Sauce", price: 0.50),
       Additive(id: 2, title: "Extra Bread", price: 0.50),
@@ -1008,7 +1339,7 @@ List<Food> foods = [
     ratingCount: 800,
     description:
         "Thinly sliced beef shawarma wrapped in pita bread with garlic sauce and pickles.",
-    price: 5.99,
+    price: 148.99,
     additives: [
       Additive(id: 1, title: "Extra Garlic Sauce", price: 0.50),
       Additive(id: 2, title: "Extra Pickles", price: 0.50),
@@ -1032,7 +1363,7 @@ List<Food> foods = [
     ratingCount: 750,
     description:
         "Grilled chicken shawarma served with rice, garlic sauce, and a side of salad.",
-    price: 9.99,
+    price: 229.99,
     additives: [
       Additive(id: 1, title: "Extra Garlic Sauce", price: 0.50),
       Additive(id: 2, title: "Extra Rice", price: 1.00),
