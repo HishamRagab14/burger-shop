@@ -441,7 +441,7 @@ List<Restaurant> restaurants = [
     name: "Kasr elKebabgy",
     rating: 4.5,
     ratingCount: 2210,
-    imageUrl: "assets/images/kasrelkbabgy.jpeg",
+    imageUrl: "assets/images/kasrelkababgy.jpg",
     menu: [],
     time: 60,
     coords: Coords(
@@ -808,7 +808,11 @@ List<Food> foods = [
     description:
         "A traditional Egyptian dish made with pasta, rice, lentils, and a spicy tomato sauce.",
     price: 25.99,
-    additives: [Additive(id: 1, title: "Extra Sauce", price: 0.50)],
+    additives: [
+      Additive(id: 1, title: "Extra Tomato Sauce", price: 5.00),
+      Additive(id: 2, title: "Extra Garlic Sauce", price: 5.50),
+      Additive(id: 3, title: "Extra Spice", price: 4.00),
+    ],
     imageUrl:
         "https://www.chocolatesandchai.com/wp-content/uploads/2023/02/Egyptian-Koshari-1.jpg",
     time: "25 min",
@@ -887,7 +891,7 @@ List<Food> foods = [
     ratingCount: 400,
     description: "A spicy meat-stuffed bread, grilled to perfection.",
     price: 139.99,
-    additives: [Additive(id: 1, title: "Extra Spice", price: 1.00)],
+    additives: [Additive(id: 1, title: "Extra Spice", price: 5.00)],
     imageUrl:
         "https://kitchen.sayidaty.net/uploads/small/5f/5f6d39861ac1d9ef4bd3a5561f9e42eb_w750_h500.jpg",
     time: "30 min",
