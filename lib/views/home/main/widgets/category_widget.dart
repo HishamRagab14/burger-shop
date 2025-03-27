@@ -1,8 +1,8 @@
 import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
-import 'package:burger_shop_app/constants/uidata.dart';
 import 'package:burger_shop_app/controllers/category_controller.dart';
+import 'package:burger_shop_app/models/categories_model.dart';
 import 'package:burger_shop_app/views/home/main/categories/all_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,17 +11,18 @@ import 'package:get/get.dart';
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({super.key, required this.category});
 
-  final FoodCategory category;
+  final CategoriesModel category;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(CategoryController());
     return GestureDetector(
       onTap: () {
-        if (controller.categoryValue == category.id.toString()) {
+        if (controller.categoryValue == category.id) {
           controller.updateCategory = '';
           controller.updateTitle = '';
-        } else if (category.title == "More") {
+        } else if (category.title == 'More'  || 
+             category.value == 'More') {
           Get.to(
             () {
               return const AllCategories();
@@ -30,7 +31,7 @@ class CategoryWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 900),
           );
         } else {
-          controller.updateCategory = category.id.toString();
+          controller.updateCategory = category.id;
           controller.updateTitle = category.title;
         }
       },
@@ -52,16 +53,37 @@ class CategoryWidget extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 5.h),
-              Image.asset(category.imageUrl!, height: 50.h, fit: BoxFit.cover),
+              Image.network(
+                category.imageUrl,
+                height: 50.h,
+                fit: BoxFit.scaleDown,
+              ),
               SizedBox(height: 5.h),
               ReusableText(
                 text: category.title,
-                style: appStyle(11, kDark, FontWeight.normal),
+                style: appStyle(
+                  11,
+                  kDark,
+                  FontWeight.normal,
+                  text: category.title,
+                ),
               ),
             ],
           ),
         );
       }),
     );
+  }
+
+  double _calculateTextSize(String text) {
+    final wordCount = text.split(' ').length;
+    final characterCount = text.length;
+
+    if (wordCount >= 3 || characterCount > 12) {
+      return 9.sp; // Smaller for long text
+    } else if (wordCount == 2 || characterCount > 8) {
+      return 10.sp; // Medium size
+    }
+    return 11.sp; // Default size for short text
   }
 }

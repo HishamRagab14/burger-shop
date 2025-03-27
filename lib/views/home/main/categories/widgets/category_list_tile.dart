@@ -1,7 +1,7 @@
 import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
-import 'package:burger_shop_app/constants/uidata.dart';
+import 'package:burger_shop_app/models/categories_model.dart';
 import 'package:burger_shop_app/views/home/main/categories/category_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,10 +13,11 @@ class CategoryListTile extends StatelessWidget {
     required this.category,
   });
 
-  final FoodCategory category;
+  final CategoriesModel category;
 
   @override
   Widget build(BuildContext context) {
+    
     return ListTile(
       onTap: () {
         Get.to(() {
@@ -26,13 +27,13 @@ class CategoryListTile extends StatelessWidget {
       horizontalTitleGap: 25.w,
       // contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
-        radius: 20.r,
+        radius: 24.r,
         backgroundColor: kGreyLight,
-        backgroundImage: AssetImage(category.imageUrl!),
+        backgroundImage: NetworkImage(category.imageUrl),
       ),
       title: ReusableText(
         text: category.title,
-        style: appStyle(12, Colors.black45, FontWeight.w500),
+        style: appStyle(13, Colors.black45, FontWeight.w500),
       ),
       trailing: Icon(
         Icons.arrow_forward_ios_rounded,

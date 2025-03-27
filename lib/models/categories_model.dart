@@ -4,58 +4,76 @@
 
 import 'dart:convert';
 
-CategoriesModel categoriesModelFromJson(String str) => CategoriesModel.fromJson(json.decode(str));
+List<CategoriesModel> categoriesModelFromJson(String str) {
+  final jsonData = json.decode(str);
 
-String categoriesModelToJson(CategoriesModel data) => json.encode(data.toJson());
+  final categoriesList =
+      jsonData is List ? jsonData : jsonData['categories'] as List<dynamic>;
 
-class CategoriesModel {
-    final List<Category> categories;
+  return categoriesList.map((x) => CategoriesModel.fromJson(x)).toList();
 
-    CategoriesModel({
-        required this.categories,
-    });
-
-    factory CategoriesModel.fromJson(Map<String, dynamic> json) => CategoriesModel(
-        categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-    };
+  // return List<CategoriesModel>.from(
+  //   json.decode(str).map((x) => CategoriesModel.fromJson(x)),
+  // );
 }
 
-class Category {
-    final String id;
-    final String title;
-    final String value;
-    final String imageUrl;
-    final String description;
-    final bool isAvailable;
+String categoriesModelToJson(List<CategoriesModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-    Category({
-        required this.id,
-        required this.title,
-        required this.value,
-        required this.imageUrl,
-        required this.description,
-        required this.isAvailable,
-    });
+// class CategoriesModel {
+//     final List<Category> categories;
+//     CategoriesModel({
+//         required this.categories,
+//     });
+//     factory CategoriesModel.fromJson(Map<String, dynamic> json) => CategoriesModel(
+//         categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
+//     );
+//     Map<String, dynamic> toJson() => {
+//         "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
+//     };
+// }
 
-    factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["_id"],
-        title: json["title"],
-        value: json["value"],
+class CategoriesModel {
+  final String id;
+  final String title;
+  final String value;
+  final String imageUrl;
+  // final String description;
+  // final bool isAvailable;
+
+  CategoriesModel({
+    required this.id,
+    required this.title,
+    required this.value,
+    required this.imageUrl,
+  });
+
+  factory CategoriesModel.fromJson(Map<String, dynamic> json) =>
+      CategoriesModel(
+        // id: json["_id"],
+        // title: json["title"],
+        // value: json["value"],
+        // imageUrl: json["imageUrl"],
+        id: json["_id"]?.toString() ?? "", // Handle null/Non-String
+        title:
+            json["title"]?.toString() ??
+            json["value"]?.toString() ??
+            "No Title", // Fallback chain
+        value:
+            json["value"]?.toString() ??
+            json["title"]?.toString() ??
+            "", // Fallback chain
         imageUrl: json["imageUrl"],
-        description: json["description"],
-        isAvailable: json["isAvailable"],
-    );
+        // description: json["description"],
+        // isAvailable: json["isAvailable"],
+      );
 
-    Map<String, dynamic> toJson() => {
-        "_id": id,
-        "title": title,
-        "value": value,
-        "imageUrl": imageUrl,
-        "description": description,
-        "isAvailable": isAvailable,
-    };
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "title": title,
+    "value": value,
+    "imageUrl": imageUrl,
+    // "description": description,
+    // "isAvailable": isAvailable,
+  };
 }
