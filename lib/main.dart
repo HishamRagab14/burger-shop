@@ -12,6 +12,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
+  // try {
+  //   // Force create SharedPreferences if doesn't exist
+  //   final prefs = await SharedPreferences.getInstance();
+  //   if (prefs.getString('auth_token') == null) {
+  //     await prefs.setString('auth_token', '');
+  //   }
+  // } catch (e) {
+  //   debugPrint('SharedPreferences workaround applied');
+  // }
   runApp(const MyApp());
 }
 
@@ -25,16 +34,16 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder:(context,child) {
+      builder: (context, child) {
         return GetMaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          
-        ),
-        home: defaultHome,
-      );}
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          ),
+          home: defaultHome,
+        );
+      },
     );
   }
 }
