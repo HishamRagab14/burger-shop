@@ -10,14 +10,14 @@ class NearbyShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 12, top: 10),
-      height: 75.h,
+      height: 100.h,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.vertical,
         itemCount: 6,
         itemBuilder: (context, index) {
           return ShimmerWidget(
             shimmerWidth: width * 0.8,
-            shimmerHeight: 180.h,
+            shimmerHeight: 80.h,
             shimmerRadius: 12,
           );
         },

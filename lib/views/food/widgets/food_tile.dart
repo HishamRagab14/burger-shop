@@ -6,6 +6,7 @@ import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/constants/uidata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class FoodTile extends StatelessWidget {
   const FoodTile({super.key, required this.food});
@@ -15,11 +16,11 @@ class FoodTile extends StatelessWidget {
   Widget build(BuildContext context) {
     log(food.toString());
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       child: Container(
         height: 76,
         decoration: BoxDecoration(
-          color: kOffWhite,
+          color: kSecondary.withAlpha(76),
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Stack(
@@ -35,28 +36,29 @@ class FoodTile extends StatelessWidget {
                         height: 62.h,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.r),
-                
                           child: Image.network(food.imageUrl!, fit: BoxFit.cover),
                         ),
                       ),
                     ),
-                    SizedBox(width: 12.w),
+                    SizedBox(width: 10.w),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ReusableText(
                           text: food.title,
-                          style: appStyle(14, Colors.black, FontWeight.w600),
+                          style: appStyle(13, kDark, FontWeight.w600),
                         ),
+                        SizedBox(height: 2.h),
                         ReusableText(
                           text: 'Delivery Time : ${food.time}',
-                          style: appStyle(12, Colors.black, FontWeight.w500),
+                          style: appStyle(11, kDark, FontWeight.w500),
                         ),
-                        ReusableText(
-                          text: food.price.toString(),
-                          style: appStyle(12, Colors.black, FontWeight.w500),
-                        ),
+                        // ReusableText(
+                        //   text: food.price.toString(),
+                        //   style: appStyle(11, Colors.black, FontWeight.w500),
+                        // ),
+                        SizedBox(height: 2.h),
                         SizedBox(
                           height: 18.h,
                           width: width *0.6,
@@ -92,24 +94,40 @@ class FoodTile extends StatelessWidget {
               ],
             ),
             Positioned(
-              right: 5.w,
+              right: 10.w,
               top: 10.h,
               child: Container(
-                width: 55.w,
-                height: 19.h,
+                width: 75.w,
+                height: 23.h,
                 decoration: BoxDecoration(
-                  color: kPrimary,
+                  color: kSecondary,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(12.r),
                   ),
                 ),
                 child: Center(
                   child: ReusableText(
-                    text: food.price.toStringAsFixed(2),
-                    style: appStyle(12, kLightWhite, FontWeight.bold),
+                    text: '${food.price.toStringAsFixed(2)} EGP',
+                    style: appStyle(11, kLightWhite, FontWeight.bold),
                   ),
                 )
-            ))
+            ),
+            ),
+            Positioned(
+              top: 10.h,
+              right: 90.w,
+              child: Container(
+                width: 21.w,
+                height: 20.h,
+                decoration: BoxDecoration(
+                  color: kSecondary,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Center(
+                  child: Icon(MaterialCommunityIcons.cart_plus, size: 15.sp, color: kLightWhite,),
+                ),
+              ),
+              ),
           ],
         ),
       ),

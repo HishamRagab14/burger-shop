@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
                     duration: Duration(milliseconds: 900),
                   );
                 },
-                text: 'Fastest Food Closer To You',
+                text: 'Food Closer To You',
               ),
               FoodList(),
             ],
