@@ -19,7 +19,7 @@ class ShimmerWidget extends StatelessWidget {
       width: shimmerWidth,
       height: shimmerHeight,
       padding: EdgeInsets.only(right: 12.0, top: 8.0),
-      child: _buildShimmerLine(height: shimmerHeight-20, width: shimmerWidth-15, radius: shimmerRadius-20),
+      child: _buildShimmerLine(height: shimmerHeight-20, width: shimmerWidth-15, radius: 20),
     );
   }
 }

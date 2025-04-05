@@ -3,21 +3,17 @@ import 'package:burger_shop_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FoodListShimmer extends StatelessWidget {
-  const FoodListShimmer({super.key});
+class VerticalFoodListShimmer extends StatelessWidget {
+  const VerticalFoodListShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 12, top: 10),
-      height: 191.h,
-      width: width * 0.7.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-      ),
+      height: height,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.only(bottom: 8,right: 0.w),
+        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.zero,
         itemCount: 6,
         itemBuilder: (context, index) {
           return ShimmerWidget(
