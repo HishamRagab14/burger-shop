@@ -2,14 +2,14 @@
 import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
-import 'package:burger_shop_app/constants/uidata.dart';
+import 'package:burger_shop_app/models/restaurants_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RestaurantTile extends StatelessWidget {
   const RestaurantTile({super.key, required this.restaurants});
-  final Restaurant restaurants;
+  final RestaurantsModel restaurants;
   // final String title;
   // // final String subtitle;
   // final String imageUrl;
@@ -42,8 +42,8 @@ class RestaurantTile extends StatelessWidget {
                         SizedBox(
                           height: 80.h,
                           width: 70.w,
-                          child: Image.asset(
-                            restaurants.imageUrl!,
+                          child: Image.network(
+                            restaurants.imageUrl,
                             fit: BoxFit.fitWidth,
                           ),
                         ),
@@ -72,17 +72,20 @@ class RestaurantTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(height: 2.h),
                       ReusableText(
-                        text: restaurants.name,
+                        text: restaurants.title,
                         style: appStyle(13, kDark, FontWeight.w400),
                       ),
+                      SizedBox(height: 5.h),
                       ReusableText(
                         text: 'Delivery time : ${restaurants.time}',
                         style: appStyle(11, kGrey, FontWeight.w400),
                       ),
                       ReusableText(
                         text: restaurants.coords.address,
-                        style: appStyle(9, kGrey, FontWeight.w400),
+                        style: appStyle(9, kGrey, FontWeight.w400,
+                            text: restaurants.coords.address),
                       ),
                       // SizedBox(height: 5.h),
                       SizedBox(
@@ -97,9 +100,10 @@ class RestaurantTile extends StatelessWidget {
                           },
                         ),
                       ),
+                      SizedBox(height: 3.h),
                       ReusableText(
                         text:
-                            '${restaurants.openingHours} : ${restaurants.closingHours}',
+                            restaurants.time,
                         style: appStyle(9, kGrey, FontWeight.w400),
                       ),
                     ],
@@ -112,17 +116,17 @@ class RestaurantTile extends StatelessWidget {
             top: 8.h,
             right: 10.w,
             child: Container(
-              height: 19.h,
+              height: 23.h,
               width: 60.w,
               decoration: BoxDecoration(
-                color: restaurants.isOpen
+                color: restaurants.isAvailable
                     ? kSecondary
                     : kGreyLight,
                 borderRadius: BorderRadius.circular(10.r),
               ),
               child: Center(
                 child: ReusableText(
-                  text: restaurants.isOpen ? 'Open' : 'Closed',
+                  text: restaurants.isAvailable ? 'Open' : 'Closed',
                   style: appStyle(12, kLightWhite, FontWeight.w600),
                 ),
               ),

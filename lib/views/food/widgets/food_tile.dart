@@ -1,24 +1,21 @@
-import 'dart:developer';
-
 import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
-import 'package:burger_shop_app/constants/uidata.dart';
+import 'package:burger_shop_app/models/foods_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class FoodTile extends StatelessWidget {
   const FoodTile({super.key, required this.food});
-  final Food food;
+  final FoodsModel food;
 
   @override
   Widget build(BuildContext context) {
-    log(food.toString());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       child: Container(
-        height: 76,
+        height: 84.h,
         decoration: BoxDecoration(
           color: kSecondary.withAlpha(76),
           borderRadius: BorderRadius.circular(12.r),
@@ -36,7 +33,7 @@ class FoodTile extends StatelessWidget {
                         height: 62.h,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.r),
-                          child: Image.network(food.imageUrl!, fit: BoxFit.cover),
+                          child: Image.network(food.imageUrl, fit: BoxFit.cover),
                         ),
                       ),
                     ),
@@ -47,12 +44,12 @@ class FoodTile extends StatelessWidget {
                       children: [
                         ReusableText(
                           text: food.title,
-                          style: appStyle(13, kDark, FontWeight.w600),
+                          style: appStyle(13, kDark, FontWeight.w600,text: food.title),
                         ),
                         SizedBox(height: 2.h),
                         ReusableText(
                           text: 'Delivery Time : ${food.time}',
-                          style: appStyle(11, kDark, FontWeight.w500),
+                          style: appStyle(11, kDark, FontWeight.w500,text: food.time),
                         ),
                         // ReusableText(
                         //   text: food.price.toString(),
@@ -65,8 +62,8 @@ class FoodTile extends StatelessWidget {
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            // physics: NeverScrollableScrollPhysics(),
-                            itemCount: food.additives.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: food.additive.length,
                             itemBuilder: (context, index) {
                               return Container(
                                 margin: EdgeInsets.only(right: 5.w),
@@ -78,7 +75,7 @@ class FoodTile extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                                     child: ReusableText(
-                                      text: food.additives[index].title,
+                                      text: food.additive[index]['title'],
                                       style: appStyle(10, kGrey, FontWeight.w400),
                                     ),
                                   ),

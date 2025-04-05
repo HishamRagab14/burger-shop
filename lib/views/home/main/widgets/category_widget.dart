@@ -74,16 +74,4 @@ class CategoryWidget extends StatelessWidget {
       }),
     );
   }
-
-  double _calculateTextSize(String text) {
-    final wordCount = text.split(' ').length;
-    final characterCount = text.length;
-
-    if (wordCount >= 3 || characterCount > 12) {
-      return 9.sp; // Smaller for long text
-    } else if (wordCount == 2 || characterCount > 8) {
-      return 10.sp; // Medium size
-    }
-    return 11.sp; // Default size for short text
-  }
 }

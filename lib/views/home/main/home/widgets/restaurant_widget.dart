@@ -9,17 +9,17 @@ class RestaurantWidget extends StatelessWidget {
   const RestaurantWidget({
     super.key,
     required this.imageUrl,
-    required this.name,
+    required this.title,
     required this.time,
     required this.rating,
     required this.ratingCount,
     this.onTap,
   });
   final String imageUrl;
-  final String name;
+  final String title;
   final String time;
-  final String rating;
-  final int ratingCount;
+  final double rating;
+  final String ratingCount;
   final void Function()? onTap;
 
   @override
@@ -49,7 +49,7 @@ class RestaurantWidget extends StatelessWidget {
                         child: SizedBox(
                           height: 140.h,
                           width: width * 0.4,
-                          child: Image.asset(imageUrl, fit: BoxFit.contain),
+                          child: Image.network(imageUrl, fit: BoxFit.contain),
                         ),
                       ),
                       Positioned(
@@ -63,7 +63,7 @@ class RestaurantWidget extends StatelessWidget {
                               padding: EdgeInsets.all(2.h),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.r),
-                                child: Image.asset(
+                                child: Image.network(
                                   imageUrl,
                                   fit: BoxFit.cover,
                                   width: 20.w,
@@ -84,7 +84,7 @@ class RestaurantWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ReusableText(
-                      text: name,
+                      text: title,
                       style: appStyle(12, kDark, FontWeight.w500),
                     ),
                     Row(
@@ -104,7 +104,7 @@ class RestaurantWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RatingBarIndicator(
-                          rating: double.parse(rating),
+                          rating: rating,
                           itemBuilder:
                               (context, index) =>
                                   const Icon(Icons.star, color: Colors.amber),

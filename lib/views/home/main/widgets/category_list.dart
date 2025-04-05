@@ -14,24 +14,21 @@ class CategoryList extends HookWidget {
     final hookResult = useFetchCategories();
     List<CategoriesModel>? categoriesList = hookResult.data;
     final isLoading = hookResult.isLoading;
-    final error = hookResult.error;
-    return Container(
-      height: 95.h,
-      padding: EdgeInsets.only(left: 12.w, top: 10.h),
-      child:
-          isLoading
-              ? CategoriesShimmer()
-              : hookResult.data != null
-              ? ListView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(categoriesList!.length, (index) {
-                  CategoriesModel category = categoriesList[index];
-                  return CategoryWidget(category: category);
-                }),
-              )
-              : const Center(
-                child: CircularProgressIndicator()
-              ),
-    );
+    // final error = hookResult.error;
+    return isLoading
+        ? CategoriesShimmer()
+        : hookResult.data != null
+        ? Container(
+          height: 95.h,
+          padding: EdgeInsets.only(left: 12.w, top: 10.h),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: List.generate(categoriesList!.length, (index) {
+              CategoriesModel category = categoriesList[index];
+              return CategoryWidget(category: category);
+            }),
+          ),
+        )
+        : const Center(child: CircularProgressIndicator());
   }
 }

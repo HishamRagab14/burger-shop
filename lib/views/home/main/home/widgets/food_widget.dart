@@ -39,7 +39,7 @@ class FoodWidget extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 8),
+                padding: EdgeInsets.only(bottom: 8,right: 0.w),
                 child: ClipRRect(
                   
                   borderRadius: BorderRadius.circular(16.r),
