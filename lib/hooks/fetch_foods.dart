@@ -65,6 +65,7 @@
 //     refetch: fetchData,
 //   );
 // }
+
 import 'dart:async';
 import 'dart:developer';
 import 'package:burger_shop_app/constants/constants.dart';
@@ -84,7 +85,7 @@ FetchFoods useFetchFoods(String code) {
     isLoading.value = true;
     try {
       Uri url = Uri.parse('$appBaseUrl/api/foods/recommendation/$code');
-      log("🔗 Full URL: $url");
+      // log("🔗 Full URL: $url");
 
       final response = await http
           .get(
@@ -100,8 +101,8 @@ FetchFoods useFetchFoods(String code) {
             onTimeout: () => throw TimeoutException("Request timed out"),
           );
 
-      log("✅ Status: ${response.statusCode}");
-      log("📦 Response Body: ${response.body}");
+      // log("✅ Status: ${response.statusCode}");
+      // log("📦 Response Body: ${response.body}");
       if (response.statusCode == 200) {
         final data = foodsModelFromJson(response.body);
         foods.value = data;

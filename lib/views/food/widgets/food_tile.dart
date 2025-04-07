@@ -7,17 +7,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class FoodTile extends StatelessWidget {
-  const FoodTile({super.key, required this.food});
+  const FoodTile({super.key, required this.food, this.color});
   final FoodsModel food;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.h),
       child: Container(
         height: 84.h,
         decoration: BoxDecoration(
-          color: kSecondary.withAlpha(76),
+          color: color?? kSecondary.withAlpha(76),
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Stack(
@@ -33,7 +34,10 @@ class FoodTile extends StatelessWidget {
                         height: 62.h,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.r),
-                          child: Image.network(food.imageUrl, fit: BoxFit.cover),
+                          child: Image.network(
+                            food.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -44,12 +48,22 @@ class FoodTile extends StatelessWidget {
                       children: [
                         ReusableText(
                           text: food.title,
-                          style: appStyle(13, kDark, FontWeight.w600,text: food.title),
+                          style: appStyle(
+                            13,
+                            kDark,
+                            FontWeight.w600,
+                            text: food.title,
+                          ),
                         ),
                         SizedBox(height: 2.h),
                         ReusableText(
                           text: 'Delivery Time : ${food.time}',
-                          style: appStyle(11, kDark, FontWeight.w500,text: food.time),
+                          style: appStyle(
+                            11,
+                            kDark,
+                            FontWeight.w500,
+                            text: food.time,
+                          ),
                         ),
                         // ReusableText(
                         //   text: food.price.toString(),
@@ -58,25 +72,38 @@ class FoodTile extends StatelessWidget {
                         SizedBox(height: 2.h),
                         SizedBox(
                           height: 18.h,
-                          width: width *0.6,
+                          width: width * 0.6,
                           child: ListView.builder(
-                            shrinkWrap: true,
+                            shrinkWrap: false,
                             scrollDirection: Axis.horizontal,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             itemCount: food.additive.length,
                             itemBuilder: (context, index) {
                               return Container(
+                                // width: width * 0.2.w,
                                 margin: EdgeInsets.only(right: 5.w),
                                 decoration: BoxDecoration(
                                   color: kSecondaryLight,
-                                  borderRadius: BorderRadius.circular(9.r),
-                                  ),
+                                  borderRadius: BorderRadius.circular(16.r),
+                                ),
                                 child: Center(
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                                    child: ReusableText(
-                                      text: food.additive[index]['title'],
-                                      style: appStyle(10, kGrey, FontWeight.w400),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 4.w,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(width: 1.w),
+                                        ReusableText(
+                                          text: food.additive[index]['title'],
+                                          style: appStyle(
+                                            10,
+                                            kGrey,
+                                            FontWeight.w400,
+                                          ),
+                                        ),
+                                        SizedBox(width: 1.w),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -107,8 +134,8 @@ class FoodTile extends StatelessWidget {
                     text: '${food.price.toStringAsFixed(2)} EGP',
                     style: appStyle(11, kLightWhite, FontWeight.bold),
                   ),
-                )
-            ),
+                ),
+              ),
             ),
             Positioned(
               top: 10.h,
@@ -121,10 +148,14 @@ class FoodTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Center(
-                  child: Icon(MaterialCommunityIcons.cart_plus, size: 15.sp, color: kLightWhite,),
+                  child: Icon(
+                    MaterialCommunityIcons.cart_plus,
+                    size: 15.sp,
+                    color: kLightWhite,
+                  ),
                 ),
               ),
-              ),
+            ),
           ],
         ),
       ),

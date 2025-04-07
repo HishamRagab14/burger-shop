@@ -841,7 +841,7 @@ List<Food> foods = [
   ),
   Food(
     id: "3",
-    title: "Lucille's Burger",
+    title: "Big Mac",
     foodTags: ["American", "Grilled", "Juicy"],
     foodType: ["Main Course"],
     code: "41007432",

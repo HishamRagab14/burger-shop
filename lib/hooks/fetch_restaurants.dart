@@ -17,7 +17,7 @@ FetchHook useFetchRestaurants(String code) {
     isLoading.value = true;
     try {
       Uri url = Uri.parse('$appBaseUrl/api/restaurant/$code');
-      log("🔗 Full URL: $url");
+      // log("🔗 Full URL: $url");
 
       final response = await http
           .get(
@@ -33,11 +33,11 @@ FetchHook useFetchRestaurants(String code) {
             onTimeout: () => throw TimeoutException("Request timed out"),
           );
 
-      log("✅ Status: ${response.statusCode}");
-      log("📦 Response Body: ${response.body}");
+      // log("✅ Status: ${response.statusCode}");
+      // log("📦 Response Body: ${response.body}");
       if (response.statusCode == 200) {
         final data = restaurantsModelFromJson(response.body);
-        log("🔄 Parsed ${data.length} foods");
+        // log("🔄 Parsed ${data.length} foods");
         restaurants.value = data;
       } else {
         apiError.value = apiError.value;

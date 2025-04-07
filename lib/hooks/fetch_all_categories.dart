@@ -101,7 +101,7 @@ FetchHook useFetchAllCategories() {
       // log("🔥 Critical Error: $e");
     } finally {
       isLoading.value = false;
-      log("🏁 Fetch completed");
+      // log("🏁 Fetch completed");
     }
   }
 

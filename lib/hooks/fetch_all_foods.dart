@@ -86,7 +86,7 @@ FetchHook useFetchAllFoods(String code) {
     apiError.value = null;
     try {
       Uri url = Uri.parse('$appBaseUrl/api/foods/byCode/$code');
-      log("🔗 Full URL: $url");
+      // log("🔗 Full URL: $url");
 
       final response = await http
           .get(url)
@@ -94,9 +94,9 @@ FetchHook useFetchAllFoods(String code) {
             const Duration(seconds: 10),
             onTimeout: () => throw TimeoutException("Request timed out"),
           );
+          log("Response Body: ${response.body}");
 
-      // log("✅ Status: ${response.statusCode}");
-      // log("📦 Response Body: ${response.body}");
+
       if (response.statusCode == 200) {
         final data = foodsModelFromJson(response.body);
         foods.value = data;

@@ -53,7 +53,6 @@
 //   );
 // }
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:burger_shop_app/constants/constants.dart';
 // import 'package:burger_shop_app/models/api_error.dart';
@@ -85,7 +84,7 @@ FetchHook useFetchCategories() {
       if (response.statusCode == 200) {
         try {
           final data = categoriesModelFromJson(response.body);
-          log("🔄 Parsed ${data.length} categories");
+          // log("🔄 Parsed ${data.length} categories");
           categoriesItems.value = data;
         } catch (e) {
           throw Exception("Failed to parse categories: $e");
@@ -93,15 +92,15 @@ FetchHook useFetchCategories() {
       } else {
         throw Exception("API Error ${response.statusCode}: ${response.body}");
       }
-    } on TimeoutException catch (e) {
+    } on TimeoutException {
       error.value = Exception("Request timed out");
-      log("⏰ Timeout: $e");
+      // log("⏰ Timeout: $e");
     } catch (e) {
       error.value = e as Exception;
       // log("🔥 Critical Error: $e");
     } finally {
       isLoading.value = false;
-      log("🏁 Fetch completed");
+      // log("🏁 Fetch completed");
     }
   }
 

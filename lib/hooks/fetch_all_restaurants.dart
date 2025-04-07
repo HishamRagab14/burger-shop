@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/models/api_error.dart';
 import 'package:burger_shop_app/models/hook_models/hook_results.dart';
@@ -17,7 +16,7 @@ FetchHook useFetchAllRestaurants() {
     isLoading.value = true;
     try {
       Uri url = Uri.parse('$appBaseUrl/api/restaurant/all');
-      log("🔗 Full URL: $url");
+      // log("🔗 Full URL: $url");
 
       final response = await http
           .get(
@@ -33,24 +32,24 @@ FetchHook useFetchAllRestaurants() {
             onTimeout: () => throw TimeoutException("Request timed out"),
           );
 
-      log("✅ Status: ${response.statusCode}");
-      log("📦 Response Body: ${response.body}");
+      // log("✅ Status: ${response.statusCode}");
+      // log("📦 Response Body: ${response.body}");
       if (response.statusCode == 200) {
         final data = restaurantsModelFromJson(response.body);
-        log("🔄 Parsed ${data.length} foods");
+        // log("🔄 Parsed ${data.length} foods");
         restaurants.value = data;
       } else {
         apiError.value = apiError.value;
       }
     } on TimeoutException catch (e) {
       error.value = Exception("Request timed out");
-      log("⏰ Timeout: $e");
+      // log("⏰ Timeout: $e");
     } catch (e) {
       error.value = e as Exception;
-      log("🔥 Critical Error: $e");
+      // log("🔥 Critical Error: $e");
     } finally {
       isLoading.value = false;
-      log("🏁 Fetch completed");
+      // log("🏁 Fetch completed");
     }
   }
 
