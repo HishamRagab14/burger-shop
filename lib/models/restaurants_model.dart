@@ -4,47 +4,52 @@
 
 import 'dart:convert';
 
-List<RestaurantsModel> restaurantsModelFromJson(String str) => List<RestaurantsModel>.from(json.decode(str).map((x) => RestaurantsModel.fromJson(x)));
-
+List<RestaurantsModel> restaurantsModelFromJson(String str) =>
+    List<RestaurantsModel>.from(
+      json.decode(str).map((x) => RestaurantsModel.fromJson(x)),
+    );
+RestaurantsModel singleRestaurantModelFromJson(String str) =>
+    RestaurantsModel.fromJson(json.decode(str));
 
 class RestaurantsModel {
-    final String id;
-    final String title;
-    final String time;
-    final String imageUrl;
-    final List<dynamic> foods;
-    final bool pickup;
-    final bool delivery;
-    final bool isAvailable;
-    final String owner;
-    final String code;
-    final String logoUrl;
-    final double rating;
-    final String ratingCount;
-    final String verification;
-    final String verificationMessage;
-    final Coords coords;
+  final String id;
+  final String title;
+  final String time;
+  final String imageUrl;
+  final List<dynamic> foods;
+  final bool pickup;
+  final bool delivery;
+  final bool isAvailable;
+  final String owner;
+  final String code;
+  final String logoUrl;
+  final double rating;
+  final String ratingCount;
+  final String verification;
+  final String verificationMessage;
+  final Coords coords;
 
-    RestaurantsModel({
-        required this.id,
-        required this.title,
-        required this.time,
-        required this.imageUrl,
-        required this.foods,
-        required this.pickup,
-        required this.delivery,
-        required this.isAvailable,
-        required this.owner,
-        required this.code,
-        required this.logoUrl,
-        required this.rating,
-        required this.ratingCount,
-        required this.verification,
-        required this.verificationMessage,
-        required this.coords,
-    });
+  RestaurantsModel({
+    required this.id,
+    required this.title,
+    required this.time,
+    required this.imageUrl,
+    required this.foods,
+    required this.pickup,
+    required this.delivery,
+    required this.isAvailable,
+    required this.owner,
+    required this.code,
+    required this.logoUrl,
+    required this.rating,
+    required this.ratingCount,
+    required this.verification,
+    required this.verificationMessage,
+    required this.coords,
+  });
 
-    factory RestaurantsModel.fromJson(Map<String, dynamic> json) => RestaurantsModel(
+  factory RestaurantsModel.fromJson(Map<String, dynamic> json) =>
+      RestaurantsModel(
         id: json["_id"],
         title: json["title"],
         time: json["time"],
@@ -61,43 +66,41 @@ class RestaurantsModel {
         verification: json["verification"],
         verificationMessage: json["verificationMessage"],
         coords: Coords.fromJson(json["coords"]),
-    );
-
-    
+      );
 }
 
 class Coords {
-    final double latitude;
-    final double longitude;
-    final String address;
-    final String title;
-    final double latitudeDelta;
-    final double longitudeDelta;
+  final double latitude;
+  final double longitude;
+  final String address;
+  final String title;
+  final double latitudeDelta;
+  final double longitudeDelta;
 
-    Coords({
-        required this.latitude,
-        required this.longitude,
-        required this.address,
-        required this.title,
-        required this.latitudeDelta,
-        required this.longitudeDelta,
-    });
+  Coords({
+    required this.latitude,
+    required this.longitude,
+    required this.address,
+    required this.title,
+    required this.latitudeDelta,
+    required this.longitudeDelta,
+  });
 
-    factory Coords.fromJson(Map<String, dynamic> json) => Coords(
-        latitude: json["latitude"]?.toDouble(),
-        longitude: json["longitude"]?.toDouble(),
-        address: json["address"],
-        title: json["title"],
-        latitudeDelta: json["latitudeDelta"]?.toDouble(),
-        longitudeDelta: json["longitudeDelta"]?.toDouble(),
-    );
+  factory Coords.fromJson(Map<String, dynamic> json) => Coords(
+    latitude: json["latitude"]?.toDouble(),
+    longitude: json["longitude"]?.toDouble(),
+    address: json["address"],
+    title: json["title"],
+    latitudeDelta: json["latitudeDelta"]?.toDouble(),
+    longitudeDelta: json["longitudeDelta"]?.toDouble(),
+  );
 
-    Map<String, dynamic> toJson() => {
-        "latitude": latitude,
-        "longitude": longitude,
-        "address": address,
-        "title": title,
-        "latitudeDelta": latitudeDelta,
-        "longitudeDelta": longitudeDelta,
-    };
+  Map<String, dynamic> toJson() => {
+    "latitude": latitude,
+    "longitude": longitude,
+    "address": address,
+    "title": title,
+    "latitudeDelta": latitudeDelta,
+    "longitudeDelta": longitudeDelta,
+  };
 }

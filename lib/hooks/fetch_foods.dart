@@ -122,6 +122,7 @@ FetchFoods useFetchFoods(String code) {
   }
 
   useEffect(() {
+    Future.delayed(const Duration(seconds: 3));
     fetchData();
     return null;
   }, []);

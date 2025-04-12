@@ -35,4 +35,12 @@ List<String> orderList= [
   'Cancelled'
 ];
 
+final List<String> verificationReasons = [
+  'Real-time Updates: Get instant notifications about your order status, including tracking updates and delivery progress.',
+  'Direct Communication: Stay connected with the restaurant and receive real-time updates on your order.',
+  'Enhanced Security: Your privacy and security are our top priority. Our secure system ensures that your information is protected at all times.',
+  'Effortless Rescheduling: Easily reschedule or cancel your order online, saving you time and effort.',
+  'Exclusive Offers: Receive exclusive offers, discounts, and special deals that you won\'t find anywhere else.',
+];
+
 

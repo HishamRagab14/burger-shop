@@ -25,38 +25,15 @@ import 'dart:developer';
 //   }
 // }
 
-// List<FoodsModel> foodsModelFromJson(String str) {
-//   final decoded = json.decode(str);
-
-//   // If API returns direct array
-//   if (decoded is List) {
-//     return decoded.map((x) => FoodsModel.fromJson(x)).toList();
-//   }
-
-//   // If API returns wrapped object
-//   if (decoded is Map) {
-//     if (decoded['results'] != null) {
-//       return (decoded['results'] as List)
-//           .map((x) => FoodsModel.fromJson(x))
-//           .toList();
-//     }
-//     if (decoded['data'] != null) {
-//       return (decoded['data'] as List)
-//           .map((x) => FoodsModel.fromJson(x))
-//           .toList();
-//     }
-//   }
-
-//   throw Exception('Unsupported API response format');
-// }
-
 List<FoodsModel> foodsModelFromJson(String str) {
   final decoded = json.decode(str);
 
+  // If API returns direct array
   if (decoded is List) {
     return decoded.map((x) => FoodsModel.fromJson(x)).toList();
   }
 
+  // If API returns wrapped object
   if (decoded is Map) {
     if (decoded['results'] != null) {
       return (decoded['results'] as List)
@@ -68,11 +45,7 @@ List<FoodsModel> foodsModelFromJson(String str) {
           .map((x) => FoodsModel.fromJson(x))
           .toList();
     }
-    if (decoded['foods'] != null) {
-      return (decoded['foods'] as List)
-          .map((x) => FoodsModel.fromJson(x))
-          .toList();
-    }
+
     if (decoded['foodsList'] != null) {
       return (decoded['foodsList'] as List)
           .map((x) => FoodsModel.fromJson(x))
