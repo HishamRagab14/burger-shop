@@ -4,7 +4,7 @@ import 'package:burger_shop_app/common/shimmers/food_list_shimmer.dart';
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/hooks/fetch_all_foods.dart';
 import 'package:burger_shop_app/models/foods_model.dart';
-import 'package:burger_shop_app/views/food/widgets/food_tile.dart';
+import 'package:burger_shop_app/views/home/main/home/widgets/food_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +14,7 @@ class AllFastestFood extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hookResults = useFetchAllFoods("41007428");
+    final hookResults = useFetchAllFoods("41007430");
     List<FoodsModel> foods = hookResults.data ?? [];
     final isLoading = hookResults.isLoading;
     return Scaffold(

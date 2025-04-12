@@ -2,8 +2,10 @@ import 'package:burger_shop_app/common/custom_container.dart';
 import 'package:burger_shop_app/common/custom_first_app_bar.dart';
 import 'package:burger_shop_app/common/heading.dart';
 import 'package:burger_shop_app/constants/constants.dart';
+import 'package:burger_shop_app/controllers/category_controller.dart';
 import 'package:burger_shop_app/views/home/main/home/widgets/all_nearby_restaurants.dart';
 import 'package:burger_shop_app/views/home/main/home/widgets/all_fastest_food.dart';
+import 'package:burger_shop_app/views/home/main/home/widgets/category_food_list.dart';
 import 'package:burger_shop_app/views/home/main/home/widgets/recommendations_page.dart';
 import 'package:burger_shop_app/views/home/main/home/widgets/nearby_restaurants_list.dart';
 import 'package:burger_shop_app/views/home/main/home/widgets/recommended_foods.dart';
@@ -17,10 +19,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CategoryController());
     return Scaffold(
       backgroundColor: kPrimary,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.h),
+        preferredSize: Size.fromHeight(90.h),
         child: CustomFirstAppBar(),
       ),
       body: SafeArea(
@@ -30,47 +33,83 @@ class HomePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               CategoryList(),
-              
-              Heading(
-                onTap: () {
-                  Get.to(
-                    () {
-                      return const RecommendedFoods();
-                    },
-                    transition: Transition.cupertino,
-                    duration: Duration(milliseconds: 900),
-                  );
-                },
-                text: 'Try Something New',
-              ),
-              RecommendationsList(),
+              SizedBox(height: 10.h),
 
-              Heading(
-                onTap: () {
-                  Get.to(
-                    () {
-                      return AllNearbyRestaurants();
-                    },
-                    transition: Transition.cupertino,
-                    duration: Duration(milliseconds: 900),
-                  );
-                },
-                text: 'Nearby Restaurants',
+              Obx(
+                () =>
+                    controller.categoryValue == ''
+                        ? Column(
+                          children: [
+                            Heading(
+                              onTap: () {
+                                Get.to(
+                                  () {
+                                    return const RecommendedFoods();
+                                  },
+                                  transition: Transition.cupertino,
+                                  duration: Duration(milliseconds: 900),
+                                );
+                              },
+                              text: 'Try Something New',
+                            ),
+                            SizedBox(height: 5.h),
+                            RecommendationsList(),
+
+                            SizedBox(height: 10.h),
+
+                            Heading(
+                              onTap: () {
+                                Get.to(
+                                  () {
+                                    return AllNearbyRestaurants();
+                                  },
+                                  transition: Transition.cupertino,
+                                  duration: Duration(milliseconds: 900),
+                                );
+                              },
+                              text: 'Nearby Restaurants',
+                            ),
+                            SizedBox(height: 5.h),
+                            NearbyRestaurantsList(),
+                            SizedBox(height: 10.h),
+                            Heading(
+                              onTap: () {
+                                Get.to(
+                                  () {
+                                    return const AllFastestFood();
+                                  },
+                                  transition: Transition.cupertino,
+                                  duration: Duration(milliseconds: 900),
+                                );
+                              },
+                              text: 'Food Closer To You',
+                            ),
+                            SizedBox(height: 5.h),
+                            RecommendationsList(),
+                            SizedBox(height: 20.h),
+                          ],
+                        )
+                        : CustomContainer(
+                          containerContent: Column(
+                            children: [
+                              Heading(
+                                more: true,
+                                onTap: () {
+                                  Get.to(
+                                    () {
+                                      return const RecommendedFoods();
+                                    },
+                                    transition: Transition.cupertino,
+                                    duration: Duration(milliseconds: 900),
+                                  );
+                                },
+                                text: 'Explore ${controller.titleValue} ',
+                              ),
+                              CategoryFoodList(),
+                            ],
+                          ),
+                        ),
               ),
-              NearbyRestaurantsList(),
-              Heading(
-                onTap: () {
-                  Get.to(
-                    () {
-                      return const AllFastestFood();
-                    },
-                    transition: Transition.cupertino,
-                    duration: Duration(milliseconds: 900),
-                  );
-                },
-                text: 'Food Closer To You',
-              ),
-              RecommendationsList(),
             ],
           ),
         ),

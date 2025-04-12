@@ -1,6 +1,7 @@
 import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
+import 'package:burger_shop_app/controllers/category_controller.dart';
 import 'package:burger_shop_app/models/categories_model.dart';
 import 'package:burger_shop_app/views/home/main/categories/category_page.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,12 @@ class CategoryListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CategoryController>();
     
     return ListTile(
       onTap: () {
+        controller.updateCategory = category.id;
+        controller.updateTitle = category.title;
         Get.to(() {
           return const CategoryPage();
         });
