@@ -3,9 +3,11 @@ import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/models/restaurants_model.dart';
+import 'package:burger_shop_app/views/home/main/restaurant/restaurant_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/route_manager.dart';
 
 class RestaurantTile extends StatelessWidget {
   const RestaurantTile({super.key, required this.restaurants});
@@ -18,7 +20,9 @@ class RestaurantTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => RestaurantPage(restaurant: restaurants));
+      },
       child: Stack(
         clipBehavior: Clip.hardEdge,
         children: [
@@ -84,8 +88,12 @@ class RestaurantTile extends StatelessWidget {
                       ),
                       ReusableText(
                         text: restaurants.coords.address,
-                        style: appStyle(9, kGrey, FontWeight.w400,
-                            text: restaurants.coords.address),
+                        style: appStyle(
+                          9,
+                          kGrey,
+                          FontWeight.w400,
+                          text: restaurants.coords.address,
+                        ),
                       ),
                       // SizedBox(height: 5.h),
                       SizedBox(
@@ -102,8 +110,7 @@ class RestaurantTile extends StatelessWidget {
                       ),
                       SizedBox(height: 3.h),
                       ReusableText(
-                        text:
-                            restaurants.time,
+                        text: restaurants.time,
                         style: appStyle(9, kGrey, FontWeight.w400),
                       ),
                     ],
@@ -119,9 +126,7 @@ class RestaurantTile extends StatelessWidget {
               height: 23.h,
               width: 60.w,
               decoration: BoxDecoration(
-                color: restaurants.isAvailable
-                    ? kSecondary
-                    : kGreyLight,
+                color: restaurants.isAvailable ? kSecondary : kGreyLight,
                 borderRadius: BorderRadius.circular(10.r),
               ),
               child: Center(

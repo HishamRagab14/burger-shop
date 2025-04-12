@@ -1,7 +1,7 @@
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/controllers/search_controller.dart';
 import 'package:burger_shop_app/models/foods_model.dart';
-import 'package:burger_shop_app/views/food/widgets/food_tile.dart';
+import 'package:burger_shop_app/views/home/main/home/widgets/food_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

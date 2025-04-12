@@ -95,7 +95,7 @@ class RestaurantWidget extends StatelessWidget {
                           style: appStyle(9, kGrey, FontWeight.w500),
                         ),
                         ReusableText(
-                          text: '$time mins',
+                          text: time,
                           style: appStyle(9, kGrey, FontWeight.w500),
                         ),
                       ],

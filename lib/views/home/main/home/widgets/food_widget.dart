@@ -29,7 +29,7 @@ class FoodWidget extends StatelessWidget {
         padding: EdgeInsets.only(left: 12.w,right: 0.w),
         child: Container(
           
-          height: 191.h,
+          height: 210.h,
           width: width * 0.7.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
@@ -44,7 +44,7 @@ class FoodWidget extends StatelessWidget {
                   
                   borderRadius: BorderRadius.circular(16.r),
                   child: SizedBox(
-                    height: 145.h,
+                    height: 150.h,
                     width: width * 0.8.w,
                     child: Image.network(imageUrl, fit: BoxFit.cover),
                   ),

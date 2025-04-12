@@ -37,8 +37,8 @@ class CategoryWidget extends StatelessWidget {
       },
       child: Obx(() {
         return Container(
-          margin: EdgeInsets.only(right: 5.w),
-          padding: EdgeInsets.only(top: 4.h),
+          margin: EdgeInsets.only(right: 6.w),
+          padding: EdgeInsets.only(top: 8.h),
           width: width * 0.19,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.r),
