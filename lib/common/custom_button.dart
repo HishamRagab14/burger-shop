@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget {
     this.buttonWidth,
     this.borderRadius,
     this.buttonColor,
+    this.textStyle,
     required this.buttonText,
   });
 
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
   final double? borderRadius;
   final Color? buttonColor;
   final String buttonText;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: ReusableText(
             text: buttonText,
-            style: appStyle(12, kLightWhite, FontWeight.w500),
+            style: textStyle ?? appStyle(12, kLightWhite, FontWeight.w500),
           ),
         ),
       ),
