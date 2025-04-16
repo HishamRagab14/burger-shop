@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/models/api_error.dart';
 import 'package:burger_shop_app/models/hook_models/hook_results.dart';
@@ -16,14 +17,14 @@ FetchHook useFetchAllRestaurants() {
     isLoading.value = true;
     try {
       Uri url = Uri.parse('$appBaseUrl/api/restaurant/all');
-      // log("🔗 Full URL: $url");
+      log("🔗 Full URL: $url");
 
       final response = await http
           .get(
             url,
             headers: {
-              'Authorization': 
-                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTJkZjllMmU1YzM3MjVkZTRhZjU1ZiIsInVzZXJUeXBlIjoiQ2xpZW50IiwiZW1haWwiOiJoaXNoYW1yYWdhYjE0QHlhaG9vLmNvbSIsImlhdCI6MTc0MjkyNjk4MSwiZXhwIjoxNzQ0NzQxMzgxfQ.oe1hdvU-YPI9BzIg2IcHznfq6cUoS4gCqFHUa-wCXXI', // Add your actual token here
+              'Authorization':
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTJkZjllMmU1YzM3MjVkZTRhZjU1ZiIsInVzZXJUeXBlIjoiQ2xpZW50IiwiZW1haWwiOiJoaXNoYW1yYWdhYjE0QHlhaG9vLmNvbSIsImlhdCI6MTc0NDc2MDgyOSwiZXhwIjoxNzQ2NTc1MjI5fQ.Hn4cJKGCmk14eW7plyltHLEKbexTEtSMqF10StPhTOw',
               'Content-Type': 'application/json',
             },
           )
@@ -41,7 +42,7 @@ FetchHook useFetchAllRestaurants() {
       } else {
         apiError.value = apiError.value;
       }
-    } on TimeoutException  {
+    } on TimeoutException {
       error.value = Exception("Request timed out");
       // log("⏰ Timeout: $e");
     } catch (e) {
