@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 
-
 FetchFoods useFetchFoodsByRestaurant(String id) {
   // final controller = Get.find<CategoryController>();
   final foods = useState<List<FoodsModel>?>(null);
@@ -17,13 +16,10 @@ FetchFoods useFetchFoodsByRestaurant(String id) {
   // final apiError = useState<ApiError?>(null);
 
   Future<void> fetchData() async {
-
     isLoading.value = true;
 
     try {
-      final url = Uri.parse(
-        '$appBaseUrl/api/foods/restaurant-foods/$id',
-      );
+      final url = Uri.parse('$appBaseUrl/api/foods/restaurant-foods/$id');
       debugPrint('🌐 Calling: $url');
 
       final response = await http.get(url);
@@ -31,9 +27,10 @@ FetchFoods useFetchFoodsByRestaurant(String id) {
       debugPrint('📦 Response: ${response.body}');
 
       if (response.statusCode == 200) {
-         final decoded = jsonDecode(response.body);
-         final List<dynamic> rawFoods = decoded['foods'];
-        foods.value = rawFoods.map((json) => FoodsModel.fromJson(json)).toList();
+        final decoded = jsonDecode(response.body);
+        final List<dynamic> rawFoods = decoded['foods'];
+        foods.value =
+            rawFoods.map((json) => FoodsModel.fromJson(json)).toList();
       } else {
         throw Exception('API Error ${response.statusCode}: ${response.body}');
       }
@@ -47,13 +44,14 @@ FetchFoods useFetchFoodsByRestaurant(String id) {
   }
 
   useEffect(() {
-    Future.delayed(const Duration(seconds: 2));
-    fetchData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 2), fetchData);
+    });
 
     return null;
   }, []);
 
-  void refetch(){
+  void refetch() {
     isLoading.value = true;
     fetchData();
   }

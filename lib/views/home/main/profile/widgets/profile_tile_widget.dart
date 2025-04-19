@@ -32,7 +32,7 @@ class ProfileTileWidget extends StatelessWidget {
               ? Icon(AntDesign.right, size: 18.sp)
               : Image.asset(
                 'assets/images/egypt.png',
-                width: 15.w,
+                width: 20.w,
                 height: 20.h,
               ),
     );
