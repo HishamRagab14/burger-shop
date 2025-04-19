@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CategoryController());
+    final controller = Get.find<CategoryController>();
     return Scaffold(
       backgroundColor: kPrimary,
       appBar: PreferredSize(

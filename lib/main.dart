@@ -1,4 +1,6 @@
+import 'package:burger_shop_app/controllers/category_controller.dart';
 import 'package:burger_shop_app/firebase_options.dart';
+import 'package:burger_shop_app/views/auth/login/login_page.dart';
 import 'package:burger_shop_app/views/entry_point.dart';
 // import 'package:burger_shop_app/views/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
+  Get.put(CategoryController());
   // try {
   //   // Force create SharedPreferences if doesn't exist
   //   final prefs = await SharedPreferences.getInstance();
@@ -21,7 +24,9 @@ void main() async {
   // } catch (e) {
   //   debugPrint('SharedPreferences workaround applied');
   // }
+  
   runApp(const MyApp());
+  // runApp(LoginPage());
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +46,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
-          home: defaultHome,
+          // home: defaultHome,
+          home: LoginPage(),
         );
       },
     );

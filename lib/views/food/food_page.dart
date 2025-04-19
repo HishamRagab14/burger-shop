@@ -6,7 +6,9 @@ import 'package:burger_shop_app/constants/constants.dart';
 // import 'package:burger_shop_app/controllers/food_controller.dart';
 import 'package:burger_shop_app/hooks/fetch_restaurant.dart';
 import 'package:burger_shop_app/models/foods_model.dart';
+import 'package:burger_shop_app/models/hook_models/additive_obs.dart';
 import 'package:burger_shop_app/views/auth/phone_verification_page.dart';
+import 'package:burger_shop_app/views/home/main/home/home_page.dart';
 import 'package:burger_shop_app/views/home/main/restaurant/restaurant_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -28,18 +30,40 @@ class FoodPage extends StatefulHookWidget {
 class _FoodPageState extends State<FoodPage> {
   final FoodController controller = Get.put(FoodController());
 
+  final RxInt localQuantity = 1.obs;
+
   @override
   void initState() {
     super.initState();
-    controller.loadAdditives(widget.food.additive);
+    // controller.loadAdditives(widget.food.additive);
 
-    controller.updateTotalPrice(price: widget.food.price);
+    final initialAdditives =
+        widget.food.additive
+            .map(
+              (m) => AdditiveObs(
+                id: m['id'] ?? 0,
+                title: m['title'] ?? '',
+                price: (m['price'] ?? 0).toString(),
+                checked: false,
+              ),
+            )
+            .toList();
+    controller.initialize(widget.food.price, initialAdditives);
+
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+
+    //   controller.loadAdditives(widget.food.additive);
+    //   controller.initializeFoodPrice(widget.food.price * localQuantity.value);
+    // });
+    // controller.updateTotalPrice(price: widget.food.price);
   }
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController requestController = useTextEditingController();
     final hookResult = useFetchRestaurant(widget.food.restaurant);
+    // controller.initializeFoodPrice(widget.food.price * localQuantity.value);
+
     // final controller = Get.put(FoodController());
     return Scaffold(
       body: ListView(
@@ -67,7 +91,7 @@ class _FoodPageState extends State<FoodPage> {
                 left: 14.w,
                 child: GestureDetector(
                   onTap: () {
-                    Get.back();
+                    Get.to(() => HomePage());
                   },
                   child: const Icon(
                     Icons.arrow_back_ios,
@@ -107,7 +131,8 @@ class _FoodPageState extends State<FoodPage> {
                     ),
                     Obx(
                       () => ReusableText(
-                        text: "${controller.totalPrice.value} EGP",
+                        text:
+                            "${controller.totalPrice.value.toStringAsFixed(2)} EGP",
                         style: appStyle(18, kPrimary, FontWeight.w600),
                       ),
                     ),
@@ -157,14 +182,12 @@ class _FoodPageState extends State<FoodPage> {
                 ),
                 SizedBox(height: 8.h),
 
-                
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: List.generate(controller.additivesList.length, (
                     index,
                   ) {
-                    final additive =
-                        controller.additivesList[index];
+                    final additive = controller.additivesList[index];
 
                     return Obx(() {
                       return Column(
@@ -178,17 +201,12 @@ class _FoodPageState extends State<FoodPage> {
                             checkColor: kWhite,
                             activeColor: kSecondary,
                             tristate: false,
-                            value:
-                                additive
-                                    .isChecked
-                                    .value,
+                            value: additive.isChecked.value,
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ReusableText(
-                                  text:
-                                      additive
-                                          .title,
+                                  text: additive.title,
                                   style: appStyle(12, kDark, FontWeight.w400),
                                 ),
                                 SizedBox(width: 8.w),
@@ -200,12 +218,15 @@ class _FoodPageState extends State<FoodPage> {
                                 ),
                               ],
                             ),
-                            onChanged: (bool? value) {
-                              additive.toggleChecked();
-                              controller.updateTotalPrice(
-                                price: widget.food.price,
-                              ); 
-                            },
+
+                            // onChanged: (bool? value) {
+                            //   additive.toggleChecked();
+                            //   controller.updateTotalPrice(
+                            //     price: widget.food.price,
+                            //   );
+                            // },
+                            onChanged:
+                                (_) => controller.toggleAdditive(additive),
                           ),
                           index != controller.additivesList.length - 1
                               ? Divider(
@@ -223,6 +244,7 @@ class _FoodPageState extends State<FoodPage> {
                 ),
 
                 SizedBox(height: 20.h),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -230,14 +252,10 @@ class _FoodPageState extends State<FoodPage> {
                       text: 'Quantity',
                       style: appStyle(16, kDark, FontWeight.w600),
                     ),
-                    SizedBox(width: 8.w),
-
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            controller.incrementQuantity(price: widget.food.price);
-                          },
+                          onTap: controller.incrementQuantity,
                           child: Container(
                             height: 22.h,
                             width: 22.w,
@@ -252,15 +270,13 @@ class _FoodPageState extends State<FoodPage> {
                           padding: EdgeInsets.symmetric(horizontal: 8.w),
                           child: Obx(
                             () => ReusableText(
-                              text: '${controller.quantity.value}',
+                              text: "${controller.quantity.value}",
                               style: appStyle(15, kDark, FontWeight.w600),
                             ),
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            controller.decrementQuantity(price: widget.food.price);
-                          },
+                          onTap: controller.decrementQuantity,
                           child: Container(
                             height: 22.h,
                             width: 22.w,
@@ -474,54 +490,3 @@ class _FoodPageState extends State<FoodPage> {
     );
   }
 }
-
-
-// Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: List.generate(widget.food.additive.length, (index) {
-                //     final additive = widget.food.additive[index];
-                //     // print(widget.food.additive);
-
-                //     final title = additive['title']?.toString() ?? '';
-                //     final price = additive['price']?.toString() ?? '';
-
-                //     return Column(
-                //       children: [
-                //         CheckboxListTile(
-                //           contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
-                //           dense: true,
-                //           visualDensity: VisualDensity.compact,
-                //           checkColor: kWhite,
-                //           activeColor: kSecondary,
-                //           tristate: false,
-                //           value: true,
-                //           title: Row(
-                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //             children: [
-                //               ReusableText(
-                //                 text: title,
-                //                 style: appStyle(12, kDark, FontWeight.w400),
-                //               ),
-                //               SizedBox(width: 8.w),
-                //               ReusableText(
-                //                 text: price,
-                //                 style: appStyle(13, kDark, FontWeight.w400),
-                //               ),
-                //             ],
-                //           ),
-                //           onChanged: (bool? value) {},
-                //         ),
-                //         index != widget.food.additive.length - 1
-                //             ? Divider(
-                //               height: 2.h,
-                //               thickness: 0.7,
-                //               color: kPrimary,
-                //               indent: 5,
-                //               endIndent: 5,
-                //             )
-                //             : SizedBox(),
-                //       ],
-                //     );
-                //    },
-                //   ),
-                // ),

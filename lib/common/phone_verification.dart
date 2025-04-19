@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_library_name, depend_on_referenced_packages
+// ignore_for_file: unnecessary_library_name, depend_on_referenced_packages, override_on_non_overriding_member
 
 library phone_otp_verification;
 
@@ -63,10 +63,10 @@ class _PhoneVerificationState extends State<PhoneVerification> {
   Map<String, List<Country>> allCountries = groupCountries(countries);
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  // void dispose() {
+  //   controller.dispose();
+  //   super.dispose();
+  // }
 
   List<Country> searchResults = [];
 
