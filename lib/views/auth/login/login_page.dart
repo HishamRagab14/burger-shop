@@ -1,6 +1,8 @@
 import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/background_container.dart';
 import 'package:burger_shop_app/common/custom_button.dart';
+import 'package:burger_shop_app/controllers/login_controller.dart';
+import 'package:burger_shop_app/models/login_model.dart';
 import 'package:burger_shop_app/views/auth/widgets/email_text_field.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
@@ -36,17 +38,17 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
     return Scaffold(
       backgroundColor: kPrimary,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: kPrimary,
-        title: Center(
-          child: ReusableText(
-            text: 'Food Shop',
-            style: appStyle(20, kLightWhite, FontWeight.bold),
-          ),
+        title: Text(
+           'Food Shop',
+          style: appStyle(20, kLightWhite, FontWeight.bold),
         ),
+        centerTitle: true,
       ),
       body: BackgroundContainer(
         color: Colors.white,
@@ -82,14 +84,23 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _emailController,
                     ),
                     SizedBox(height: 20.h),
-                    PasswordTextField(
-                      controller: _passwordController,
-                    ),
+                    PasswordTextField(controller: _passwordController),
 
                     SizedBox(height: 60.h),
                     CustomButton(
                       buttonText: 'LOGIN',
-                      onTap: () {},
+                      onTap: () {
+                        if (_emailController.text.isNotEmpty &&
+                            _passwordController.text.length >= 7) {
+                          LoginModel model = LoginModel(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
+
+                          String data = loginModelToJson(model);
+                          controller.loginFunction(data);
+                        }
+                      },
                       buttonColor: kPrimary,
                       buttonHeight: 40.h,
                       textStyle: appStyle(14, Colors.white, FontWeight.w500),

@@ -1,6 +1,8 @@
 import 'package:burger_shop_app/common/app_style.dart';
 import 'package:burger_shop_app/common/background_container.dart';
 import 'package:burger_shop_app/common/custom_button.dart';
+import 'package:burger_shop_app/controllers/register_controller.dart';
+import 'package:burger_shop_app/models/registration_model.dart';
 import 'package:burger_shop_app/views/auth/widgets/email_text_field.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
@@ -9,7 +11,7 @@ import 'package:burger_shop_app/views/auth/widgets/password_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -23,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
+  late final TextEditingController _userController = TextEditingController();
 
   final FocusNode _passwordFocusNode = FocusNode();
 
@@ -30,12 +33,14 @@ class _RegisterPageState extends State<RegisterPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _userController.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(RegisterController());
     return Scaffold(
       backgroundColor: kPrimary,
       appBar: AppBar(
@@ -79,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         size: 20,
                         color: kGreyLight,
                       ),
-                      controller: _passwordController,
+                      controller: _userController,
                     ),
                     SizedBox(height: 20.h),
                     CustomTextField(
@@ -92,13 +97,24 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _emailController,
                     ),
                     SizedBox(height: 20.h),
-                    PasswordTextField(
-                      controller: _passwordController,
-                    ),
+                    PasswordTextField(controller: _passwordController),
                     SizedBox(height: 40.h),
                     CustomButton(
                       buttonText: 'REGISTER',
-                      onTap: () {},
+                      onTap: () {
+                        if (_emailController.text.isNotEmpty &&
+                            _userController.text.isNotEmpty &&
+                            _passwordController.text.length >= 7) {
+                          RegistrationModel model = RegistrationModel(
+                            username: _userController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
+
+                          String data = registrationModelToJson(model);
+                          controller.registerFunction(data);
+                        }
+                      },
                       buttonColor: kPrimary,
                       buttonHeight: 40.h,
                       textStyle: appStyle(14, Colors.white, FontWeight.w500),
