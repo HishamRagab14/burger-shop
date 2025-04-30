@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-String googleApiKey = '';
+
 const kPrimary = Color(0xff30b9b2);
 const kPrimaryLight = Color(0xff40FEF3);
 const kSecondary = Color(0xFFFFa44f);
@@ -23,6 +23,8 @@ double width = 392.72.w;
 const String appBaseUrl = "http://10.0.2.2:6013"; // For Android emulator
 // OR
 // const String appBaseUrl = "http://127.0.0.1:6013"; // For iOS simulator
+
+const String googleApiKey = 'AIzaSyASEWaeremxscKNIWC9-1m3vIhyYNTD_yM';
 
 
 List<String> orderList= [

@@ -1,7 +1,7 @@
 import 'package:burger_shop_app/controllers/category_controller.dart';
+import 'package:burger_shop_app/controllers/login_controller.dart';
 import 'package:burger_shop_app/firebase_options.dart';
-import 'package:burger_shop_app/views/auth/login/login_page.dart';
-import 'package:burger_shop_app/views/entry_point.dart';
+  import 'package:burger_shop_app/views/entry_point.dart';
 // import 'package:burger_shop_app/views/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +10,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 Widget defaultHome = MainScreen();
+// Widget defaultHome = LoginRedirect();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
+  Get.put(LoginController());
   Get.put(CategoryController());
   // try {
   //   // Force create SharedPreferences if doesn't exist
@@ -46,8 +48,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
-          // home: defaultHome,
-          home: LoginPage(),
+          home: defaultHome,
+          // home: LoginPage(),
         );
       },
     );
