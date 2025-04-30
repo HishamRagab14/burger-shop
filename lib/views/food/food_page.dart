@@ -3,12 +3,15 @@ import 'package:burger_shop_app/common/custom_button.dart';
 import 'package:burger_shop_app/common/custom_text_field.dart';
 import 'package:burger_shop_app/common/reusable_text.dart';
 import 'package:burger_shop_app/constants/constants.dart';
+import 'package:burger_shop_app/controllers/login_controller.dart';
 // import 'package:burger_shop_app/controllers/food_controller.dart';
 import 'package:burger_shop_app/hooks/fetch_restaurant.dart';
 import 'package:burger_shop_app/models/foods_model.dart';
 import 'package:burger_shop_app/models/hook_models/additive_obs.dart';
+import 'package:burger_shop_app/models/login_response.dart';
+import 'package:burger_shop_app/views/auth/login/login_page.dart';
 import 'package:burger_shop_app/views/auth/phone_verification_page.dart';
-import 'package:burger_shop_app/views/home/main/home/home_page.dart';
+import 'package:burger_shop_app/views/entry_point.dart';
 import 'package:burger_shop_app/views/home/main/restaurant/restaurant_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +54,6 @@ class _FoodPageState extends State<FoodPage> {
     controller.initialize(widget.food.price, initialAdditives);
 
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-
     //   controller.loadAdditives(widget.food.additive);
     //   controller.initializeFoodPrice(widget.food.price * localQuantity.value);
     // });
@@ -60,8 +62,12 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginResponse? user;
     final TextEditingController requestController = useTextEditingController();
     final hookResult = useFetchRestaurant(widget.food.restaurant);
+    final loginController = Get.find<LoginController>();
+
+    user = loginController.getUserInfo();
     // controller.initializeFoodPrice(widget.food.price * localQuantity.value);
 
     // final controller = Get.put(FoodController());
@@ -91,7 +97,7 @@ class _FoodPageState extends State<FoodPage> {
                 left: 14.w,
                 child: GestureDetector(
                   onTap: () {
-                    Get.to(() => HomePage());
+                    Get.to(() => MainScreen());
                   },
                   child: const Icon(
                     Icons.arrow_back_ios,
@@ -388,7 +394,13 @@ class _FoodPageState extends State<FoodPage> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            showVerificationSheet(context);
+                            if (user == null) {
+                              Get.to(() => LoginPage());
+                            } else if (user.phoneVerification == false) {
+                              showVerificationSheet(context);
+                            } else {
+                              // print('Place Order');
+                            }
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 40.w),
@@ -479,7 +491,7 @@ class _FoodPageState extends State<FoodPage> {
                   buttonText: 'Verify Phone Number',
                   buttonColor: kPrimary,
                   onTap: () {
-                    Get.to(PhoneVerificationPage());
+                    Get.to(() => PhoneVerificationPage());
                   },
                 ),
               ],

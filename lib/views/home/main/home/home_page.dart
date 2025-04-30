@@ -1,5 +1,5 @@
+import 'package:burger_shop_app/common/custom_appbar.dart';
 import 'package:burger_shop_app/common/custom_container.dart';
-import 'package:burger_shop_app/common/custom_first_app_bar.dart';
 import 'package:burger_shop_app/common/heading.dart';
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/controllers/category_controller.dart';
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: kPrimary,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90.h),
-        child: CustomFirstAppBar(),
+        child: CustomAppbar(),
       ),
       body: SafeArea(
         child: CustomContainer(
