@@ -26,7 +26,7 @@ class NearbyRestaurantsList extends HookWidget {
           return RestaurantWidget(
             onTap: () {
               Get.to((){
-                return RestaurantPage();
+                return RestaurantPage(restaurant: restaurant,);
               });
             },
             imageUrl: restaurant.imageUrl,
