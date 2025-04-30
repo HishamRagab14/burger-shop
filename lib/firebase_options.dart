@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '606356496406',
     projectId: 'burger-shop-9ebbd',
     storageBucket: 'burger-shop-9ebbd.firebasestorage.app',
+    androidClientId: '606356496406-cif124a507fik108phr54vs9l0pnu11q.apps.googleusercontent.com',
+    iosClientId: '606356496406-acpg6qcfl4nbjmkakip9g8dnvc0ns7c2.apps.googleusercontent.com',
     iosBundleId: 'com.example.burgerShopApp',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '606356496406',
     projectId: 'burger-shop-9ebbd',
     storageBucket: 'burger-shop-9ebbd.firebasestorage.app',
+    androidClientId: '606356496406-cif124a507fik108phr54vs9l0pnu11q.apps.googleusercontent.com',
+    iosClientId: '606356496406-acpg6qcfl4nbjmkakip9g8dnvc0ns7c2.apps.googleusercontent.com',
     iosBundleId: 'com.example.burgerShopApp',
   );
 
@@ -85,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'burger-shop-9ebbd.firebasestorage.app',
     measurementId: 'G-2WRY77C50V',
   );
+
 }

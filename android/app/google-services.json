@@ -12,7 +12,20 @@
           "package_name": "com.example.burger_shop_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "606356496406-cif124a507fik108phr54vs9l0pnu11q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.burger_shop_app",
+            "certificate_hash": "7b12ba3a1996f37380a5eba2b0d9833e3c97e79c"
+          }
+        },
+        {
+          "client_id": "606356496406-e9u3eu9dcfmvntkr5hfq7gprv2u1s1ur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBUnXqRFyPPYZPwbaEo2PQTZngkCoOwUg4"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606356496406-e9u3eu9dcfmvntkr5hfq7gprv2u1s1ur.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "606356496406-acpg6qcfl4nbjmkakip9g8dnvc0ns7c2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.burgerShopApp"
+              }
+            }
+          ]
         }
       }
     }
