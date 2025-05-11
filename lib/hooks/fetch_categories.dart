@@ -63,11 +63,14 @@ import 'package:http/http.dart' as http;
 
 FetchHook useFetchCategories() {
   final categoriesItems = useState<List<CategoriesModel>>([]); // Initialize as empty list
-  final isLoading = useState<bool>(true); // Start in loading state
+  final isLoading = useState<bool>(false); // Start in loading state
   final error = useState<Exception?>(null);
   // final apiError = useState<ApiError?>(null);
 
   Future<void> fetchData() async {
+    isLoading.value = true;
+    error.value = null;
+    categoriesItems.value = [];
     try {
       
       final url = Uri.parse('$appBaseUrl/api/category/random');
@@ -78,8 +81,6 @@ FetchHook useFetchCategories() {
           throw TimeoutException("Request timed out after 10 seconds");
         });
 
-      // log("✅ Status: ${response.statusCode}");
-      // log("📦 Response Body: ${response.body}");
 
       if (response.statusCode == 200) {
         try {
@@ -104,15 +105,17 @@ FetchHook useFetchCategories() {
     }
   }
 
+  final fetchDataCallback = useCallback(fetchData, const []);
+
   useEffect(() {
-    fetchData();
+    fetchDataCallback();
     return null;
-  }, []);
+  }, [fetchDataCallback]);
 
   return FetchHook(
     data: categoriesItems.value,
     isLoading: isLoading.value,
     error: error.value,
-    refetch: fetchData,
+    refetch: fetchDataCallback,
   );
 }

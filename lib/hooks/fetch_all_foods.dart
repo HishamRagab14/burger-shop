@@ -3,20 +3,20 @@ import 'dart:developer';
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/models/api_error.dart';
 import 'package:burger_shop_app/models/foods_model.dart';
-import 'package:burger_shop_app/models/hook_models/hook_results.dart';
+import 'package:burger_shop_app/models/hook_models/foods_hook.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 
-FetchHook useFetchAllFoods(String code) {
+FetchFoods useFetchAllFoods(String code) {
   final foods = useState<List<FoodsModel>>([]);
-  final isLoading = useState<bool>(true);
+  final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
-  final apiError = useState<ApiError?>(null);
+  // final apiError = useState<ApiError?>(null);
 
-  Future<void> fetchData() async {
-    isLoading.value = true;
+  Future<void> actualFetchDataLogic() async {
     error.value = null;
-    apiError.value = null;
+    foods.value = [];
     try {
       Uri url = Uri.parse('$appBaseUrl/api/foods/byCode/$code');
       // log("🔗 Full URL: $url");
@@ -27,14 +27,22 @@ FetchHook useFetchAllFoods(String code) {
             const Duration(seconds: 10),
             onTimeout: () => throw TimeoutException("Request timed out"),
           );
-          log("Response Body: ${response.body}");
-
+      log("Response Body: ${response.body}");
 
       if (response.statusCode == 200) {
         final data = foodsModelFromJson(response.body);
         foods.value = data;
       } else {
-        apiError.value = apiErrorFromJson(response.body);
+        try {
+          final parsedApiError = apiErrorFromJson(response.body);
+          error.value = Exception(
+            "API Error ${response.statusCode}: ${parsedApiError.message}",
+          );
+        } catch (_) {
+          error.value = Exception(
+            'API Error ${response.statusCode}: ${response.body}',
+          ); // Fallback
+        }
       }
     } on TimeoutException catch (e) {
       error.value = Exception("Request timed out");
@@ -48,16 +56,40 @@ FetchHook useFetchAllFoods(String code) {
     }
   }
 
-  useEffect(() {
-    // Future.delayed(const Duration(seconds: 3));
-    fetchData();
-    return null;
-  }, []);
+  final fetchDataCallback = useCallback(actualFetchDataLogic, [code]);
 
-  return FetchHook(
+  useEffect(() {
+    bool isMounted = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (isMounted && !isLoading.value) {
+        isLoading.value = true;
+        fetchDataCallback().whenComplete(() {
+          if (isMounted) {
+            isLoading.value = false;
+          }
+        });
+      }
+    });
+    return () {
+      isMounted = false;
+    };
+  }, [fetchDataCallback]);
+
+  void handleRefetch() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!isLoading.value) {
+        isLoading.value = true;
+        fetchDataCallback().whenComplete(() {
+          isLoading.value = false;
+        });
+      }
+    });
+  }
+
+  return FetchFoods(
     data: foods.value,
     isLoading: isLoading.value,
     error: error.value,
-    refetch: fetchData,
+    refetch: handleRefetch,
   );
 }

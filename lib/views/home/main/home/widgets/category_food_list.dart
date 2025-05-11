@@ -70,28 +70,36 @@ class CategoryFoodList extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hookResult = useFetchFoodsByCategory(); 
+    final hookResult = useFetchFoodsByCategory();
     List<FoodsModel>? foods = hookResult.data;
-    final isLoading = hookResult.isLoading;
-
+    final bool isLoading = hookResult.isLoading;
+    final Exception? error = hookResult.error;
+    if (isLoading) {
+      return const VerticalFoodListShimmer();
+    }
+    if (error != null) {
+      return Center(child: Text("Error: ${error.toString()}"));
+    }
+    if (foods == null || foods.isEmpty) {
+      return const Center(
+        child: Text("No foods found in** this category."),
+      );
+    }
     return SizedBox(
       height: height,
       width: width,
-      child: isLoading
-          ? const VerticalFoodListShimmer()
-          : Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: ListView(
-                children: List.generate(foods!.length, (index) {
-                  FoodsModel food = foods[index];
-                  return FoodTile(
-                    food: food,
-                    color: Colors.white,
-                    );
-                }),
+      child:
+          isLoading
+              ? const VerticalFoodListShimmer()
+              : Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: ListView(
+                  children: List.generate(foods.length, (index) {
+                    FoodsModel food = foods[index];
+                    return FoodTile(food: food, color: Colors.white);
+                  }),
+                ),
               ),
-            ),
     );
   }
 }
-

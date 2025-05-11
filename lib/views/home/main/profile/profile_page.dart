@@ -5,6 +5,7 @@ import 'package:burger_shop_app/models/login_response.dart';
 import 'package:burger_shop_app/views/auth/login/login_page.dart';
 import 'package:burger_shop_app/views/auth/login/login_redirect.dart';
 import 'package:burger_shop_app/views/auth/widgets/verification_page.dart';
+import 'package:burger_shop_app/views/home/main/profile/shipping_address.dart';
 import 'package:burger_shop_app/views/home/main/profile/widgets/profile_app_bar.dart';
 import 'package:burger_shop_app/constants/constants.dart';
 import 'package:burger_shop_app/views/home/main/profile/widgets/profile_tile_widget.dart';
@@ -108,7 +109,9 @@ class ProfilePage extends StatelessWidget {
                     ProfileTileWidget(
                       title: 'Shipping Address',
                       icon: SimpleLineIcons.location_pin,
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => ShippingAddress());
+                      },
                     ),
                     ProfileTileWidget(
                       title: 'Service Center',

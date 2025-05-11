@@ -39,25 +39,21 @@ class _FoodPageState extends State<FoodPage> {
   void initState() {
     super.initState();
     // controller.loadAdditives(widget.food.additive);
-
-    final initialAdditives =
-        widget.food.additive
-            .map(
-              (m) => AdditiveObs(
-                id: m['id'] ?? 0,
-                title: m['title'] ?? '',
-                price: (m['price'] ?? 0).toString(),
-                checked: false,
-              ),
-            )
-            .toList();
-    controller.initialize(widget.food.price, initialAdditives);
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   controller.loadAdditives(widget.food.additive);
-    //   controller.initializeFoodPrice(widget.food.price * localQuantity.value);
-    // });
-    // controller.updateTotalPrice(price: widget.food.price);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Check if the widget is still mounted before calling controller methods
+      // This is a good safety measure, especially with async operations or post-frame callbacks.
+      if (mounted) {
+        final initialAdditives = widget.food.additive.map(
+          (m) => AdditiveObs(
+            id: m['id'] ?? 0, // Provide default values if map keys might be missing
+            title: m['title'] ?? '',
+            price: (m['price'] ?? 0).toString(), // Ensure price is always a string
+            checked: false,
+          ),
+        ).toList();
+        controller.initialize(widget.food.price, initialAdditives);
+      }
+    });
   }
 
   @override
@@ -224,13 +220,6 @@ class _FoodPageState extends State<FoodPage> {
                                 ),
                               ],
                             ),
-
-                            // onChanged: (bool? value) {
-                            //   additive.toggleChecked();
-                            //   controller.updateTotalPrice(
-                            //     price: widget.food.price,
-                            //   );
-                            // },
                             onChanged:
                                 (_) => controller.toggleAdditive(additive),
                           ),

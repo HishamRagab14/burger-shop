@@ -9,12 +9,14 @@ import 'package:http/http.dart' as http;
 
 FetchHook useFetchRestaurants(String code) {
   final restaurants = useState<List<RestaurantsModel>>([]);
-  final isLoading = useState<bool>(true);
+  final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
-  final apiError = useState<ApiError?>(null);
+  // final apiError = useState<ApiError?>(null);
 
   Future<void> fetchData() async {
     isLoading.value = true;
+    error.value = null;
+    restaurants.value = [];
     try {
       Uri url = Uri.parse('$appBaseUrl/api/restaurant/$code');
       // log("🔗 Full URL: $url");
@@ -23,8 +25,8 @@ FetchHook useFetchRestaurants(String code) {
           .get(
             url,
             headers: {
-              'Authorization': 
-                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTJkZjllMmU1YzM3MjVkZTRhZjU1ZiIsInVzZXJUeXBlIjoiQ2xpZW50IiwiZW1haWwiOiJoaXNoYW1yYWdhYjE0QHlhaG9vLmNvbSIsImlhdCI6MTc0NDc2MDgyOSwiZXhwIjoxNzQ2NTc1MjI5fQ.Hn4cJKGCmk14eW7plyltHLEKbexTEtSMqF10StPhTOw', // Add your actual token here
+              'Authorization':
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDliZTJiM2I2NTBkNWY0YTU5MjBlYiIsInVzZXJUeXBlIjoiQ2xpZW50IiwiZW1haWwiOiJoaXNoYW1yYWdhYjE0QHlhaG9vLmNvbSIsImlhdCI6MTc0NTkyNjg3NiwiZXhwIjoxNzQ3NzQxMjc2fQ.gSNMs-ZhK_CnuiTeOKq3jZOzFq1NEX2AEwrBf4W9WNY',
               'Content-Type': 'application/json',
             },
           )
@@ -40,7 +42,16 @@ FetchHook useFetchRestaurants(String code) {
         // log("🔄 Parsed ${data.length} foods");
         restaurants.value = data;
       } else {
-        apiError.value = apiError.value;
+        try {
+          final parsedApiError = apiErrorFromJson(response.body);
+          error.value = Exception(
+            "API Error ${response.statusCode}: ${parsedApiError.message}",
+          );
+        } catch (_) {
+          error.value = Exception(
+            'API Error ${response.statusCode}: ${response.body}',
+          );
+        }
       }
     } on TimeoutException catch (e) {
       error.value = Exception("Request timed out");
@@ -54,15 +65,17 @@ FetchHook useFetchRestaurants(String code) {
     }
   }
 
+  final fetchDataCallback = useCallback(fetchData, [code]);
+
   useEffect(() {
-    fetchData();
+    fetchDataCallback();
     return null;
-  }, []);
+  }, [fetchDataCallback]);
 
   return FetchHook(
     data: restaurants.value,
     isLoading: isLoading.value,
     error: error.value,
-    refetch: fetchData,
+    refetch: fetchDataCallback,
   );
 }
