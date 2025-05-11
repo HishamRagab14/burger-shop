@@ -32,28 +32,25 @@ class UserLocationController extends GetxController {
     );
     log(
       "Requesting Geocoding URL: ${url.toString()}",
-    ); // Log the URL being requested
+    );
 
     final response = await http.get(url);
     log(
       "Geocoding Response HTTP Status Code: ${response.statusCode}",
     ); // Log HTTP status
-    log("Geocoding Raw Response Body: ${response.body}"); // <-- LOG THIS!!!
+    // log("Geocoding Raw Response Body: ${response.body}"); // <-- LOG THIS!!!
 
     if (response.statusCode == 200) {
       try {
         final responseBody = jsonDecode(response.body);
 
-        // Check the status INSIDE the JSON
         if (responseBody['status'] == 'OK' &&
             responseBody['results'] is List &&
             responseBody['results'].isNotEmpty) {
           log("Geocoding Internal Status OK and results are not empty.");
           final address = responseBody['results'][0]['formatted_address'];
           setAddress = address;
-          // ... rest of parsing ...
         } else {
-          // Log the INTERNAL status if not 'OK' or results empty
           log(
             "Geocoding failed or returned empty results. Internal Status: ${responseBody['status']}",
           );

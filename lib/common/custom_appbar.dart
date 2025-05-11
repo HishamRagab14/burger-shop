@@ -88,7 +88,6 @@ class _CustomAppbarState extends State<CustomAppbar> {
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    log("_determinePosition: Service Enabled = $serviceEnabled");
     if (!serviceEnabled) {
       log("_determinePosition: Location services are disabled. Exiting.");
       return Future.error('Location services are disabled.');
@@ -98,7 +97,7 @@ class _CustomAppbarState extends State<CustomAppbar> {
     if (permission == LocationPermission.denied) {
       log("_determinePosition: Permission denied, requesting...");
       permission = await Geolocator.requestPermission();
-      log("_determinePosition: Permission After Request = $permission");
+      // log("_determinePosition: Permission After Request = $permission");
       if (permission == LocationPermission.denied) {
         log("_determinePosition: Permission denied after request. Exiting.");
         return Future.error('Location permissions are denied');
@@ -107,7 +106,6 @@ class _CustomAppbarState extends State<CustomAppbar> {
 
     if (permission == LocationPermission.deniedForever) {
       log("_determinePosition: Permission denied forever. Exiting.");
-      // Permissions are denied forever, handle appropriately.
       return Future.error(
         'Location permissions are permanently denied, we cannot request permissions.',
       );
@@ -123,15 +121,13 @@ class _CustomAppbarState extends State<CustomAppbar> {
         locationSettings: AndroidSettings(accuracy: LocationAccuracy.best),
       );
       log("_getCurrentLocation: Position obtained successfully.");
-      LatLng currentLocation = LatLng(position.latitude, position.longitude);
+      // LatLng currentLocation = LatLng(position.latitude, position.longitude);
+      LatLng currentLocation = LatLng(31.427283, 31.809867);
+      log(">>>> Location Received from Geolocator: $currentLocation");
       controller.setPosition(currentLocation);
       controller.getUserAddress(currentLocation);
-      log("✅✅✅ Current Location: $currentLocation");
-      // print("PRINTED Current Location: $currentLocation");
     } catch (e) {
-      log(
-        "❌❌❌ Error getting current location: $e",
-      ); // Log any error during fetch
+      log("❌❌❌ Error getting current location: $e");
     }
   }
 }
